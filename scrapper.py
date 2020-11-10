@@ -48,18 +48,20 @@ class Scrapper():
         response = requests.get(url, headers=headers)
         return response
 
-    def fetch_batch(self, total_pages=5):
+    def fetch_batch(self, total_pages):
         """
         Fetch all pages for a specific Make & Model
         """
         pages_fetched = 0
 
+        # Randomize the sequence of pages being fetched to
+        # reduce the chance of being labelled as
         pages = [1]
         pages.extend(random.sample(range(2, total_pages + 1), total_pages - 1))
+        start_time = time.time()
 
         for page_num in pages:
             url = self.base_url + self.page_sufix + str(page_num)
-            print(f"Fetching page {url}")
             response = self.fetch(url)
 
             # Wait for a few seconds before fetching the next page
@@ -69,10 +71,13 @@ class Scrapper():
             if response.status_code == 200:
                 pages_fetched += 1
                 self.parse(response.text)
+        end_time = time.time()
         vehicles_parsed = len(self.listings)
 
         message = f"Total pages fetched {pages_fetched} : {vehicles_parsed} {self.make} {self.model} vehicles parsed"
+        time_stat = f"Total time {end_time - start_time} seconds"
         logging.info(message)
+        logging.info(time_stat)
 
     def parse(self, raw_html):
         """
@@ -107,9 +112,31 @@ class Scrapper():
 
 if __name__ == "__main__":
     import csv
-    URL = "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?sourceContext=carGurusHomePageModel&entitySelectingHelper.selectedEntity=d292&zip=02169"
-    webscrapper = Scrapper("cg", URL, "#resultsPage=", "Toyota", "Camry", "ms")
-    webscrapper.fetch_batch()
+    import argparse
+
+    # Command line arguments
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("-u", "--url", help="URL of page to be scrapped")
+    parser.add_argument("-w", "--source", help="Source website name")
+    parser.add_argument("-s",
+                        "--urlsuffix",
+                        help="URL suffix",
+                        default="#resultsPage=")
+    parser.add_argument("-d",
+                        "--vdetail",
+                        help="Make, model and category of vehicle",
+                        default="Toyota Camry ms")
+    parser.add_argument("-p",
+                        "--pages",
+                        help="Number of pages to be scrapped",
+                        type=int,
+                        default=5)
+
+    args = parser.parse_args()
+    webscrapper = Scrapper(args.source, args.url, args.urlsuffix,
+                           *args.vdetail.split())
+    webscrapper.fetch_batch(args.pages)
     with open("listing.csv", "a") as file_handler:
         csv_writer = csv.writer(file_handler,
                                 delimiter=',',
