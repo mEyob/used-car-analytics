@@ -55,7 +55,7 @@ class Scrapper():
         pages_fetched = 0
 
         # Randomize the sequence of pages being fetched to
-        # reduce the chance of being labelled as
+        # reduce the chance of being labelled as robot
         pages = [1]
         pages.extend(random.sample(range(2, total_pages + 1), total_pages - 1))
         start_time = time.time()
@@ -64,8 +64,9 @@ class Scrapper():
             url = self.base_url + self.page_sufix + str(page_num)
             response = self.fetch(url)
 
-            # Wait for a few seconds before fetching the next page
-            random_seconds = random.randint(1, 5)
+            # To reduce the chance of being labeled as robot,
+            # wait for a few seconds before fetching the next page
+            random_seconds = random.random()
             time.sleep(random_seconds)
 
             if response.status_code == 200:
@@ -103,9 +104,8 @@ class Scrapper():
                     mileage = mileage.replace(",", "").replace("mi",
                                                                "").strip()
 
-                    self.listings.append([
-                        make, model, trim, self.category, year, mileage, price
-                    ])
+                    self.listings.append(
+                        [make, model, trim, year, mileage, price])
                 except:
                     pass
 
@@ -143,5 +143,5 @@ if __name__ == "__main__":
                                 quotechar='"',
                                 quoting=csv.QUOTE_MINIMAL)
         csv_writer.writerow(
-            ["Make", "Model", "Trim", "Category", "Year", "Mileage", "Price"])
+            ["Make", "Model", "Trim", "Year", "Mileage", "Price"])
         csv_writer.writerows(webscrapper.listings)
