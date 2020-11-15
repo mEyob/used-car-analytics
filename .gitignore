@@ -143,3 +143,6 @@ cython_debug/
 
 # temporary folder
 tmp/
+
+# terraform state file
+terraform.tfstate*
