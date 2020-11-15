@@ -66,8 +66,8 @@ class Scrapper():
 
             # To reduce the chance of being labeled as robot,
             # wait for a few seconds before fetching the next page
-            random_seconds = random.random()
-            time.sleep(random_seconds)
+            # random_seconds = 5 * random.random()
+            # time.sleep(random_seconds)
 
             if response.status_code == 200:
                 pages_fetched += 1
@@ -75,7 +75,7 @@ class Scrapper():
         end_time = time.time()
         vehicles_parsed = len(self.listings)
 
-        message = f"Total pages fetched {pages_fetched} : {vehicles_parsed} {self.make} {self.model} vehicles parsed"
+        message = f"Website {self.website_name.upper()}: total pages fetched {pages_fetched} : {vehicles_parsed} {self.make} {self.model} vehicles parsed"
         time_stat = f"Total time {end_time - start_time} seconds"
         logging.info(message)
         logging.info(time_stat)
@@ -84,30 +84,64 @@ class Scrapper():
         """
         Parse vehicle(s) information from html page
         """
-        parsed = BeautifulSoup(raw_html, "html.parser")
+        bs_object = BeautifulSoup(raw_html, "html.parser")
 
         if self.website_name == "cg":
-            for listing in parsed.find_all("div", class_="bladeWrap"):
-                try:
-                    header = listing.find("h4").text.strip()
-                    popover = listing.find(
-                        "div", "popoverWrapper listingDetailsPopover_wrapper"
-                    ).text.strip()
-                    header = header.replace(popover, "").strip()
-                    year, make, model, *trim = header.split()
-                    trim = " ".join(trim)
+            parser = self.cg_parser
+        elif self.website_name == "ed":
+            parser = self.ed_parser
+        try:
+            parser(bs_object)
+        except:
+            pass
 
-                    price = listing.find("span", class_="price").text.strip()
-                    price = price.replace("$", "").replace(",", "")
+    def cg_parser(self, bs_object):
+        """
+        """
+        for listing in bs_object.find_all("div", class_="bladeWrap"):
+            header = listing.find("h4").text.strip()
+            popover = listing.find(
+                "div",
+                "popoverWrapper listingDetailsPopover_wrapper").text.strip()
+            header = header.replace(popover, "").strip()
+            year, make, model, *trim = header.split()
+            trim = " ".join(trim)
 
-                    mileage = listing.find("p", class_="mileage").text.strip()
-                    mileage = mileage.replace(",", "").replace("mi",
-                                                               "").strip()
+            price = listing.find("span", class_="price").text.strip()
+            price = price.replace("$", "").replace(",", "")
 
-                    self.listings.append(
-                        [make, model, trim, year, mileage, price])
-                except:
-                    pass
+            mileage = listing.find("p", class_="mileage").text.strip()
+            mileage = mileage.replace(",", "").replace("mi", "").strip()
+
+            self.listings.append([make, model, trim, year, mileage, price])
+
+    def ed_parser(self, bs_object):
+        """
+        """
+        for listing in bs_object.find_all(
+                "div",
+                class_="vehicle-info pl-1_25 pl-md-1 pl-lg-1_25 container-fluid"):
+            price = listing.find(
+                "span",
+                class_="display-price font-weight-bold text-gray-darker"
+            ).text.strip()
+            price = price.replace("$", "").replace(",", "")
+
+            header = listing.find(
+                "h2",
+                "card-title size-16 text-primary-darker font-weight-bold d-block mb-0_5"
+            ).text.strip()
+            header = header.strip("Certified ")
+            year, make, model, *trim = header.split()
+            if model.lower() != self.model.lower():
+                continue
+            trim = " ".join(trim)
+
+            mileage = listing.find(["div", "span"],
+                                   class_="size-14").text.strip()
+            mileage = mileage.replace(",", "").replace("miles", "").strip()
+
+            self.listings.append([make, model, trim, year, mileage, price])
 
 
 if __name__ == "__main__":

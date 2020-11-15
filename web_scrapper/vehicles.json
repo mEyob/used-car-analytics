@@ -1,0 +1,259 @@
+[
+    {
+        "make": "toyota",
+        "vehicles": [
+            {
+                "type": "compact-sedan",
+                "model": "corolla",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?sourceContext=carGurusHomePageModel&entitySelectingHelper.selectedEntity=d295&zip=02169",
+                    "ed": "https://www.edmunds.com/used-toyota-corolla/"
+                }
+            },
+            {
+                "type": "mid-size-sedan",
+                "model": "camry",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?sourceContext=carGurusHomePageModel&entitySelectingHelper.selectedEntity=d292&zip=02169",
+                    "ed": "https://www.edmunds.com/used-toyota-camry/"
+
+                }
+            },
+            {
+                "type": "full-size-sedan",
+                "model": "avalon",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?sourceContext=carGurusHomePageModel&entitySelectingHelper.selectedEntity=d291&zip=02169",
+                    "ed": "https://www.edmunds.com/used-toyota-avalon/"
+                }
+            }
+        ]
+    },
+    {
+        "make": "nissan",
+        "vehicles": [
+            {
+                "type": "compact-sedan",
+                "model": "sentra",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?sourceContext=carGurusHomePageModel&entitySelectingHelper.selectedEntity=d249&zip=02169",
+                    "ed": "https://www.edmunds.com/used-nissan-sentra/"
+                }
+            },
+            {
+                "type": "mid-size-sedan",
+                "model": "altima",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d237",
+                    "ed": "https://www.edmunds.com/used-nissan-altima/"
+                }
+            },
+            {
+                "type": "full-size-sedan",
+                "model": "maxima",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d242",
+                    "ed": "https://www.edmunds.com/used-nissan-maxima/"
+                }
+            }
+        ]
+    },
+    {
+        "make": "honda",
+        "vehicles": [
+            {
+                "type": "compact-sedan",
+                "model": "civic",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d586",
+                    "ed": "https://www.edmunds.com/used-honda-civic/"
+
+                }
+            },
+            {
+                "type": "mid-size-sedan",
+                "model": "accord",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d585",
+                    "ed": "https://www.edmunds.com/used-honda-accord/"
+                }
+            }
+        ]
+    },
+    {
+        "make": "ford",
+        "vehicles": [
+            {
+                "type": "compact-sedan",
+                "model": "focus",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d346",
+                    "ed": "https://www.edmunds.com/used-ford-focus/"
+                }
+            },
+            {
+                "type": "mid-size-sedan",
+                "model": "fusion",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d845",
+                    "ed": "https://www.edmunds.com/used-ford-fusion/"
+                }
+            },
+            {
+                "type": "full-size-sedan",
+                "model": "taurus",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d355",
+                    "ed": "https://www.edmunds.com/used-ford-taurus/"
+                }
+            }
+
+        ]
+    },
+    {
+        "make": "hyundai",
+        "vehicles": [
+            {
+                "type": "compact-sedan",
+                "model": "elantra",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d92",
+                    "ed": "https://www.edmunds.com/used-hyundai-elantra/"
+                }
+            },
+            {
+                "type": "mid-size-sedan",
+                "model": "sonata",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d92",
+                    "ed": "https://www.edmunds.com/used-hyundai-sonata/"
+                }
+            }
+
+        ]
+    },
+    {
+        "make": "chevrollet",
+        "vehicles": [
+            {
+                "type": "compact-sedan",
+                "model": "cruze",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d2076",
+                    "ed": "https://www.edmunds.com/used-chevrolet-cruze/"
+                }
+            },
+            {
+                "type": "mid-size-sedan",
+                "model": "malibu",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d622",
+                    "ed": "https://www.edmunds.com/used-chevrolet-malibu/"
+                }
+            },
+            {
+                "type": "full-size-sedan",
+                "model": "impala",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d622",
+                    "ed": "https://www.edmunds.com/used-chevrolet-impala/"
+                }
+            }
+        ]
+    },
+    {
+        "make": "volkswagen",
+        "vehicles": [
+            {
+                "type": "compact-sedan",
+                "model": "jetta",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d200",
+                    "ed": "https://www.edmunds.com/used-volkswagen-jetta/"
+                }
+            },
+            {
+                "type": "mid-size-sedan",
+                "model": "passat",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d202",
+                    "ed": "https://www.edmunds.com/used-volkswagen-passat/"
+                }
+            }
+
+        ]
+    },
+    {
+        "make": "mazda",
+        "vehicles": [
+            {
+                "type": "compact-sedan",
+                "model": "mazda3",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d214",
+                    "ed": "https://www.edmunds.com/used-mazda-3/"
+                }
+            },
+            {
+                "type": "mid-size-sedan",
+                "model": "mazda6",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d215",
+                    "ed": "https://www.edmunds.com/used-mazda-6/"
+                }
+            }
+
+        ]
+    },
+    {
+        "make": "subaru",
+        "vehicles": [
+            {
+                "type": "compact-sedan",
+                "model": "impreza",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d375",
+                    "ed": "https://www.edmunds.com/used-subaru-impreza/"
+                }
+            },
+            {
+                "type": "mid-size-sedan",
+                "model": "legacy",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d378",
+                    "ed": "https://www.edmunds.com/used-subaru-legacy/"
+                }
+            }
+        ]
+    },
+    {
+        "make": "kia",
+        "vehicles": [
+            {
+                "type": "compact-sedan",
+                "model": "forte",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d2043",
+                    "ed": "https://www.edmunds.com/used-kia-forte/"
+                }
+            },
+            {
+                "type": "mid-size-sedan",
+                "model": "optima",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d158",
+                    "ed": "https://www.edmunds.com/used-kia-optima/"
+                }
+            },
+            {
+                "type": "full-size-sedan",
+                "model": "cadenza",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d2215",
+                    "ed": "https://www.edmunds.com/used-kia-cadenza/"
+                }
+            }
+
+        ]
+    }
+]
