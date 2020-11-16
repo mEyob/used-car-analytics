@@ -28,10 +28,11 @@ def load_scrapping_links(vehicle_category):
         make = vehicle_brand.get("make")
         target_vehicle = filter(lambda x: x.get("type") == vehicle_category,
                                 vehicle_brand.get("vehicles"))
-        target_vehicle = list(target_vehicle)[0]
-        model = target_vehicle.get("model")
-        urls = target_vehicle.get("base_url")
-        vehicles.append((make, model, urls))
+        if target_vehicle:
+            target_vehicle = list(target_vehicle)[0]
+            model = target_vehicle.get("model")
+            urls = target_vehicle.get("base_url")
+            vehicles.append((make, model, urls))
     return vehicles
 
 
@@ -87,15 +88,23 @@ def scrap_and_upload(vehicle_category):
 
 
 if __name__ == "__main__":
+    import time
     categories = [
         "compact-sedan", "mid-size-sedan", "full-size-sedan", "compact-suv",
-        "mid-size-suv", "full-size-suv"
+        "mid-size-suv", "full-size-suv", "all"
     ]
     parser = argparse.ArgumentParser()
-    parser.add_argument("category",
-                        help="Vehicle category, e.g. mid-size-sedan")
+    parser.add_argument("-c",
+                        "--category",
+                        help="Vehicle category, e.g. mid-size-sedan",
+                        default="all")
     args = parser.parse_args()
 
     if args.category not in categories:
         sys.exit("Invalid category")
-    scrap_and_upload(args.category)
+    if args.category == "all":
+        for category in categories[:-1]:
+            scrap_and_upload(category)
+            time.sleep(30)
+    else:
+        scrap_and_upload(args.category)

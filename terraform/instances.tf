@@ -48,6 +48,10 @@ resource "aws_security_group" "ec2_security_group" {
   }
 }
 
+data "template_file" "ec2_userdata" {
+  template = "${file("${path.cwd}/userdata.tpl")}"
+}
+
 resource "aws_instance" "scrapper" {
   ami                  = "ami-00ddb0e5626798373" # ubuntu 18.04 ami
   instance_type        = "t2.micro"
@@ -56,6 +60,8 @@ resource "aws_instance" "scrapper" {
   private_ip             = "10.0.0.5"
   subnet_id              = aws_subnet.puplic_subnet.id
   vpc_security_group_ids = [aws_security_group.ec2_security_group.id]
+
+  user_data = data.template_file.ec2_userdata.template
 
   tags = {
       Name = "scrapper"
