@@ -1,24 +1,52 @@
-resource "aws_vpc" "vpc-used-car-analytics" {
+resource "aws_vpc" "vpc_used_car_analytics" {
   cidr_block           = "10.0.0.0/16"
   enable_dns_hostnames = true
+
+  tags = {
+      Name = "vpc-used-car-analytics"
+  }
 }
 
 resource "aws_internet_gateway" "gw" {
-  vpc_id = aws_vpc.vpc-used-car-analytics.id
+  vpc_id = aws_vpc.vpc_used_car_analytics.id
+
+  tags = {
+      Name = "igw-used-car-vpc"
+  }
+}
+resource "aws_route_table" "rtable" {
+  vpc_id = aws_vpc.vpc_used_car_analytics.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.gw.id
+  }
+
+  tags = {
+    Name = "main-rt"
+  }
 }
 
 resource "aws_subnet" "puplic_subnet" {
-  vpc_id                  = aws_vpc.vpc-used-car-analytics.id
+  vpc_id                  = aws_vpc.vpc_used_car_analytics.id
   cidr_block              = "10.0.0.0/24"
   map_public_ip_on_launch = true
 
   depends_on = [aws_internet_gateway.gw]
+  tags = {
+    Name = "public_subnet"
+  }
+}
+
+resource "aws_route_table_association" "rtable_to_subnet" {
+  subnet_id      = aws_subnet.puplic_subnet.id
+  route_table_id = aws_route_table.rtable.id
 }
 
 resource "aws_security_group" "ec2_security_group" {
   name        = "ec2_security_group"
   description = "Allow SSH and HTTP requests"
-  vpc_id      = aws_vpc.vpc-used-car-analytics.id
+  vpc_id      = aws_vpc.vpc_used_car_analytics.id
 
   ingress {
     description = "SSH from anywhere"
@@ -55,6 +83,7 @@ data "template_file" "ec2_userdata" {
 resource "aws_instance" "scrapper" {
   ami                  = "ami-00ddb0e5626798373" # ubuntu 18.04 ami
   instance_type        = "t2.micro"
+  key_name             = "melat512"
   iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
 
   private_ip             = "10.0.0.5"
