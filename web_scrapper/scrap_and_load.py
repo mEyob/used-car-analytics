@@ -14,14 +14,13 @@ from datetime import datetime
 from scrapper import Scrapper
 
 NUM_OF_PAGES = 10
-DESTINATION_BUCKET = "used-car-prices"
+DESTINATION_BUCKET = "used-car-listing-prices"
 
 
 def load_scrapping_links(vehicle_category):
     """
     """
     vehicles = []
-    with open("vehicles.json") as fhandle:
         vehicles_dict = json.load(fhandle)
     for vehicle_brand in vehicles_dict:
         make = vehicle_brand.get("make")
