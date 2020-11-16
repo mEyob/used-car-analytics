@@ -2,13 +2,24 @@
 --scrapper.py--
 Module for scrapping and parsing used car data
 """
+import os
 import time
 import random
 import logging
 import requests
+from datetime import datetime
 from bs4 import BeautifulSoup
 
+log_dir = os.path.join(os.path.dirname(__file__), os.pardir, "log")
+try:
+    os.mkdir(log_dir)
+except FileExistsError:
+    pass
+
 logging.basicConfig(level=logging.INFO,
+                    filename=os.path.join(
+                        log_dir,
+                        datetime.now().strftime("%y-%m-%d") + ".log"),
                     format='%(asctime)s - %(levelname)s - %(message)s',
                     datefmt='%y-%m-%d %H:%M:%S')
 
@@ -75,10 +86,9 @@ class Scrapper():
         end_time = time.time()
         vehicles_parsed = len(self.listings)
 
-        message = f"Website {self.website_name.upper()}: total pages fetched {pages_fetched} : {vehicles_parsed} {self.make} {self.model} vehicles parsed"
-        time_stat = f"Total time {end_time - start_time} seconds"
+        time_stat = f"total time {end_time - start_time} seconds"
+        message = f"Website {self.website_name.upper()}: total pages fetched {pages_fetched} : {vehicles_parsed} {self.make} {self.model} vehicles parsed : {time_stat}"
         logging.info(message)
-        logging.info(time_stat)
 
     def parse(self, raw_html):
         """
