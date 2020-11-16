@@ -7,7 +7,7 @@
                 "model": "corolla",
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?sourceContext=carGurusHomePageModel&entitySelectingHelper.selectedEntity=d295&zip=02169",
-                    "ed": "https://www.edmunds.com/used-toyota-corolla/"
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=toyota&model=corolla&radius=50&isUsurp=true&wz=17"
                 }
             },
             {
@@ -15,7 +15,7 @@
                 "model": "camry",
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?sourceContext=carGurusHomePageModel&entitySelectingHelper.selectedEntity=d292&zip=02169",
-                    "ed": "https://www.edmunds.com/used-toyota-camry/"
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=toyota&model=camry&radius=50&isUsurp=true&wz=17"
 
                 }
             },
@@ -24,7 +24,7 @@
                 "model": "avalon",
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?sourceContext=carGurusHomePageModel&entitySelectingHelper.selectedEntity=d291&zip=02169",
-                    "ed": "https://www.edmunds.com/used-toyota-avalon/"
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=toyota&model=avalon&radius=50&isUsurp=true&wz=17"
                 }
             }
         ]
@@ -37,7 +37,7 @@
                 "model": "sentra",
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?sourceContext=carGurusHomePageModel&entitySelectingHelper.selectedEntity=d249&zip=02169",
-                    "ed": "https://www.edmunds.com/used-nissan-sentra/"
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=nissan&model=sentra&radius=50&isUsurp=true&wz=17"
                 }
             },
             {
@@ -45,7 +45,7 @@
                 "model": "altima",
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d237",
-                    "ed": "https://www.edmunds.com/used-nissan-altima/"
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=nissan&model=altima&radius=50&isUsurp=true&wz=17"
                 }
             },
             {
@@ -53,7 +53,7 @@
                 "model": "maxima",
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d242",
-                    "ed": "https://www.edmunds.com/used-nissan-maxima/"
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=nissan&model=maxima&radius=50&isUsurp=true&wz=17"
                 }
             }
         ]
@@ -66,7 +66,7 @@
                 "model": "civic",
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d586",
-                    "ed": "https://www.edmunds.com/used-honda-civic/"
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=honda&model=civic&radius=50&isUsurp=true&wz=17"
 
                 }
             },
@@ -75,7 +75,7 @@
                 "model": "accord",
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d585",
-                    "ed": "https://www.edmunds.com/used-honda-accord/"
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=honda&model=accord&radius=50&isUsurp=true&wz=17"
                 }
             }
         ]
@@ -88,7 +88,7 @@
                 "model": "focus",
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d346",
-                    "ed": "https://www.edmunds.com/used-ford-focus/"
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=ford&model=focus&radius=50&isUsurp=true&wz=17"
                 }
             },
             {
@@ -96,7 +96,7 @@
                 "model": "fusion",
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d845",
-                    "ed": "https://www.edmunds.com/used-ford-fusion/"
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=ford&model=fusion&radius=50&isUsurp=true&wz=17"
                 }
             },
             {
@@ -104,7 +104,7 @@
                 "model": "taurus",
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d355",
-                    "ed": "https://www.edmunds.com/used-ford-taurus/"
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=ford&model=taurus&radius=50&isUsurp=true&wz=17"
                 }
             }
 
@@ -118,7 +118,7 @@
                 "model": "elantra",
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d92",
-                    "ed": "https://www.edmunds.com/used-hyundai-elantra/"
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=hyundai&model=elantra&radius=50&isUsurp=true&wz=17"
                 }
             },
             {
@@ -126,7 +126,7 @@
                 "model": "sonata",
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d92",
-                    "ed": "https://www.edmunds.com/used-hyundai-sonata/"
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=hyundai&model=sonata&radius=50&isUsurp=true&wz=17"
                 }
             }
 
@@ -140,7 +140,7 @@
                 "model": "cruze",
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d2076",
-                    "ed": "https://www.edmunds.com/used-chevrolet-cruze/"
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=chevrolet&model=cruze&radius=50&isUsurp=true&wz=17"
                 }
             },
             {
@@ -148,7 +148,7 @@
                 "model": "malibu",
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d622",
-                    "ed": "https://www.edmunds.com/used-chevrolet-malibu/"
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=chevrolet&model=malibu&radius=50&isUsurp=true&wz=17"
                 }
             },
             {
@@ -156,7 +156,7 @@
                 "model": "impala",
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d622",
-                    "ed": "https://www.edmunds.com/used-chevrolet-impala/"
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=chevrolet&model=impala&radius=50&isUsurp=true&wz=17"
                 }
             }
         ]
@@ -169,7 +169,7 @@
                 "model": "jetta",
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d200",
-                    "ed": "https://www.edmunds.com/used-volkswagen-jetta/"
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=volkswagen&model=jetta&radius=50&isUsurp=true&wz=17"
                 }
             },
             {
@@ -177,7 +177,7 @@
                 "model": "passat",
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d202",
-                    "ed": "https://www.edmunds.com/used-volkswagen-passat/"
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=volkswagen&model=passat&radius=50&isUsurp=true&wz=17"
                 }
             }
 
@@ -191,7 +191,7 @@
                 "model": "mazda3",
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d214",
-                    "ed": "https://www.edmunds.com/used-mazda-3/"
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=mazda&model=3&radius=50&isUsurp=true&wz=17"
                 }
             },
             {
@@ -199,7 +199,7 @@
                 "model": "mazda6",
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d215",
-                    "ed": "https://www.edmunds.com/used-mazda-6/"
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=mazda&model=6&radius=50&isUsurp=true&wz=17"
                 }
             }
 
@@ -213,7 +213,7 @@
                 "model": "impreza",
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d375",
-                    "ed": "https://www.edmunds.com/used-subaru-impreza/"
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=subaru&model=impreza&radius=50&isUsurp=true&wz=17"
                 }
             },
             {
@@ -221,7 +221,7 @@
                 "model": "legacy",
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d378",
-                    "ed": "https://www.edmunds.com/used-subaru-legacy/"
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=subaru&model=legacy&radius=50&isUsurp=true&wz=17"
                 }
             }
         ]
@@ -234,7 +234,7 @@
                 "model": "forte",
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d2043",
-                    "ed": "https://www.edmunds.com/used-kia-forte/"
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=kia&model=forte&radius=50&isUsurp=true&wz=17"
                 }
             },
             {
@@ -242,7 +242,7 @@
                 "model": "optima",
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d158",
-                    "ed": "https://www.edmunds.com/used-kia-optima/"
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=kia&model=optima&radius=50&isUsurp=true&wz=17"
                 }
             },
             {
@@ -250,7 +250,7 @@
                 "model": "cadenza",
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d2215",
-                    "ed": "https://www.edmunds.com/used-kia-cadenza/"
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=kia&model=cadenza&radius=50&isUsurp=true&wz=17"
                 }
             }
 
