@@ -49,12 +49,14 @@ resource "aws_security_group" "ec2_security_group" {
 }
 
 resource "aws_instance" "scrapper" {
-  ami           = "ami-00ddb0e5626798373" # ubuntu 18.04 ami
-  instance_type = "t2.micro"
+  ami                  = "ami-00ddb0e5626798373" # ubuntu 18.04 ami
+  instance_type        = "t2.micro"
+  iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
 
-  private_ip = "10.0.0.5"
-  subnet_id  = aws_subnet.puplic_subnet.id
+  private_ip             = "10.0.0.5"
+  subnet_id              = aws_subnet.puplic_subnet.id
   vpc_security_group_ids = [aws_security_group.ec2_security_group.id]
+
   tags = {
       Name = "scrapper"
   }

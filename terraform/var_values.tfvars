@@ -1,0 +1,1 @@
+bucket_name="used-car-listing-prices"
