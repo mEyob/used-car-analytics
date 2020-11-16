@@ -15,12 +15,14 @@ from scrapper import Scrapper
 
 NUM_OF_PAGES = 10
 DESTINATION_BUCKET = "used-car-listing-prices"
+DIR_NAME = os.path.dirname(__file__)
 
 
 def load_scrapping_links(vehicle_category):
     """
     """
     vehicles = []
+    with open(f"{DIR_NAME}/vehicles.json") as fhandle:
         vehicles_dict = json.load(fhandle)
     for vehicle_brand in vehicles_dict:
         make = vehicle_brand.get("make")
@@ -47,7 +49,7 @@ def create_directory(name):
     """
     Create a directory at the same level as this module.
     """
-    path = os.path.join(os.path.dirname(__file__), name)
+    path = os.path.join(DIR_NAME, name)
     try:
         os.mkdir(path)
     except FileExistsError:
@@ -64,7 +66,7 @@ def scrap_and_upload(vehicle_category):
     header = ["Make", "Model", "Trim", "Year", "Mileage", "Price"]
     start_time = datetime.utcnow().strftime("%Y-%m-%d")
     create_directory("tmp")
-    file_path = f"tmp/{start_time}.csv"
+    file_path = f"{DIR_NAME}/tmp/{start_time}.csv"
     for make, model, urls in vehicles:
         for website_name, link in urls.items():
             if website_name == 'cg':
