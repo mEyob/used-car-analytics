@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cd $HOME/
+cd $HOME/used-car-analytics
 source python-env/bin/activate
-python used-car-analytics/web_scrapper/scrap_and_load.py
+python web_scrapper/scrap_and_load.py
