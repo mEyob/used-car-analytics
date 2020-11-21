@@ -26,18 +26,11 @@ def load_scrapping_links(vehicle_category):
         vehicles_dict = json.load(fhandle)
     for vehicle_brand in vehicles_dict:
         make = vehicle_brand.get("make")
-<<<<<<< HEAD
-        target_vehicle = filter(lambda x: x.get("type") == vehicle_category,
-                                vehicle_brand.get("vehicles"))
-        if target_vehicle:
-            target_vehicle = list(target_vehicle)[0]
-=======
         target_vehicle = list(
             filter(lambda x: x.get("type") == vehicle_category,
                    vehicle_brand.get("vehicles")))
         if target_vehicle:
             target_vehicle = target_vehicle[0]
->>>>>>> main
             model = target_vehicle.get("model")
             urls = target_vehicle.get("base_url")
             vehicles.append((make, model, urls))
