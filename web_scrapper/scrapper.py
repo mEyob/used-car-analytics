@@ -56,7 +56,10 @@ class Scrapper():
             'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8',
         }
 
-        response = requests.get(url, headers=headers)
+        try:
+            response = requests.get(url, headers=headers, timeout=5)
+        except:
+            response = None
         return response
 
     def fetch_batch(self, total_pages):
@@ -80,7 +83,7 @@ class Scrapper():
             # random_seconds = 5 * random.random()
             # time.sleep(random_seconds)
 
-            if response.status_code == 200:
+            if response and response.status_code == 200:
                 pages_fetched += 1
                 self.parse(response.text)
         end_time = time.time()
