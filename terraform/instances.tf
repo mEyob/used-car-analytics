@@ -1,5 +1,5 @@
 resource "aws_vpc" "vpc_used_car_analytics" {
-  cidr_block           = "10.0.0.0/16"
+  cidr_block           = var.vpc_cidr_block
   enable_dns_hostnames = true
 
   tags = {
@@ -29,7 +29,7 @@ resource "aws_route_table" "rtable" {
 
 resource "aws_subnet" "puplic_subnet" {
   vpc_id                  = aws_vpc.vpc_used_car_analytics.id
-  cidr_block              = "10.0.0.0/24"
+  cidr_block              = var.subnet_cidr_block
   map_public_ip_on_launch = true
 
   depends_on = [aws_internet_gateway.gw]
@@ -81,12 +81,12 @@ data "template_file" "ec2_userdata" {
 }
 
 resource "aws_instance" "scrapper" {
-  ami                  = "ami-00ddb0e5626798373" # ubuntu 18.04 ami
-  instance_type        = "t2.micro"
-  key_name             = "melat512"
+  ami                  = var.ami # eg. ubuntu 18.04 ami
+  instance_type        = var.instance_type
+  key_name             = var.key_name
   iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
 
-  private_ip             = "10.0.0.5"
+  private_ip             = var.scrapper_ec2_pvt_ip
   subnet_id              = aws_subnet.puplic_subnet.id
   vpc_security_group_ids = [aws_security_group.ec2_security_group.id]
 

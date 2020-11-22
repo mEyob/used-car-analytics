@@ -67,8 +67,9 @@ def scrap_and_upload(vehicle_category):
     vehicles = load_scrapping_links(vehicle_category)
     header = ["Make", "Model", "Trim", "Year", "Mileage", "Price"]
     start_time = datetime.utcnow().strftime("%Y-%m-%d")
-    create_directory("tmp")
-    file_path = f"{DIR_NAME}/tmp/{start_time}.csv"
+    create_directory(f"tmp")
+    create_directory(f"tmp/{vehicle_category}")
+    file_path = f"{DIR_NAME}/tmp/{vehicle_category}/{start_time}.csv"
     for make, model, urls in vehicles:
         for website_name, link in urls.items():
             if website_name == 'cg':
@@ -83,9 +84,10 @@ def scrap_and_upload(vehicle_category):
                     write(csvfile, site_scrapper.listings, header)
                     header = None
 
-    s3_client = boto3.client('s3')
-    s3_client.upload_file(file_path, DESTINATION_BUCKET,
-                          f"{vehicle_category}/{start_time}.csv")
+    if os.path.exists(file_path):
+        s3_client = boto3.client('s3')
+        s3_client.upload_file(file_path, DESTINATION_BUCKET,
+                              f"{vehicle_category}/{start_time}.csv")
 
 
 if __name__ == "__main__":

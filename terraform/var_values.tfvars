@@ -1,1 +1,10 @@
 bucket_name="used-car-listing-prices"
+ami="ami-00ddb0e5626798373" # Ubuntu 18.04
+instance_type="t2.micro"
+key_name="melat512"
+scrapper_ec2_pvt_ip="10.0.0.5"
+vpc_cidr_block="10.0.0.0/16"
+subnet_cidr_block="10.0.0.0/24"
+lambda_function_file="lambda_function.py"
+lambda_function_name="ec2_control_lambda_function"
+lambda_handler="lambda_function.lambda_handler"
