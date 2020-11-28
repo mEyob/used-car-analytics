@@ -31,7 +31,8 @@ data "aws_iam_policy_document" "lambda_cloudwatch_and_ec2_access" {
       effect = "Allow"
       actions = [
         "ec2:Start*",
-        "ec2:Stop*"
+        "ec2:Stop*",
+        "ec2:DescribeInstances"
       ]
       resources = [
           "*",
@@ -51,7 +52,7 @@ data "archive_file" "lambda_function" {
   output_path = "lambda_function.zip"
 }
 
-resource "aws_lambda_function" "transformerLambda" {
+resource "aws_lambda_function" "controller_lambda" {
   filename = data.archive_file.lambda_function.output_path
   function_name = var.lambda_function_name
   role = aws_iam_role.lambda_execution_role.arn
