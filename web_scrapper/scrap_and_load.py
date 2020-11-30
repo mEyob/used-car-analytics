@@ -63,13 +63,18 @@ def scrap_and_upload(vehicle_category):
     """
     if vehicle_category is None:
         sys.exit("vehicle category cannot be null")
-
     vehicles = load_scrapping_links(vehicle_category)
-    header = ["Make", "Model", "Trim", "Year", "Mileage", "Price"]
+
     start_time = datetime.utcnow().strftime("%Y-%m-%d")
     create_directory(f"tmp")
     create_directory(f"tmp/{vehicle_category}")
     file_path = f"{DIR_NAME}/tmp/{vehicle_category}/{start_time}.csv"
+
+    if os.path.exists(file_path):
+        header = None
+    else:
+        header = ["Make", "Model", "Trim", "Year", "Mileage", "Price"]
+
     for make, model, urls in vehicles:
         for website_name, link in urls.items():
             if website_name == 'cg':
