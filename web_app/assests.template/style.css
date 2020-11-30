@@ -1,0 +1,12 @@
+.dropdown {
+    color: #87bdd8;
+    background: transparent;
+    border-color: white;
+}
+
+.dropdownGroup {
+    color: white;
+    padding: 5px 25px 10px 25px;
+    background-color: #b7d7e8;
+    border-radius: 10px;
+}
