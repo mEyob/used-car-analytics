@@ -45,7 +45,7 @@ years = list(range(2020, 2009, -1))
 app.layout = html.Div(
     style={"font-family": "Arial"},
     children=[
-        html.H1("Used Car Listing Price Statistics",
+        html.H2("Used Car Listing Prices in the Boston Metropolitan",
                 style={
                     'text-align': 'center',
                     'fontWeight': 'bold',
@@ -86,7 +86,8 @@ app.layout = html.Div(
         html.Div(
             [
                 html.Div([
-                    html.H6("Select vehicle", ),
+                    html.H6(children=["Select vehicle"],
+                            id="first_vehicle_title"),
                     dcc.Dropdown(id="slct_make",
                                  options=[{
                                      "label": make,
@@ -119,8 +120,7 @@ app.layout = html.Div(
                 html.Div(
                     id="second-car",
                     children=[
-                        html.H6("Second vehicle", style={'margin-left': '5px'
-                                                         }),
+                        html.H6("Vehicle 2", style={'margin-left': '5px'}),
                         dcc.Dropdown(id="slct_make2",
                                      options=[{
                                          "label": make,
@@ -195,7 +195,8 @@ app.layout = html.Div(
 # Connect the Plotly graphs with Dash Components
 @app.callback([
     Output(component_id='mileage_price_plot', component_property='figure'),
-    Output(component_id='second-car', component_property='style')
+    Output(component_id='second-car', component_property='style'),
+    Output(component_id='first_vehicle_title', component_property='children')
 ], [
     Input(component_id='slct_make', component_property='value'),
     Input(component_id='slct_model', component_property='value'),
@@ -227,6 +228,7 @@ def update_graph(make_selected, model_selected, year_selected, make_selected2,
         fig.update_traces(marker_color="#d64161")
         fig.layout.plot_bgcolor = "white"
         show_second_car = {**drop_down_group_style, 'display': 'none'}
+        first_vehicle_title = "Select Vehicle"
     elif tab == "tab-2":
         df = data.get_grouped_data(make_selected,
                                    model_selected,
@@ -245,18 +247,18 @@ def update_graph(make_selected, model_selected, year_selected, make_selected2,
                    x=car1.Mileage_range,
                    y=car1.Average_Price,
                    error_y=dict(array=car1.STD_Price.tolist()),
-                   text=[f"Sample size ={s}" for s in car1.Count.tolist()],
-                   hovertemplate='<i>Average Price</i>: $%{y:.2f}' +
-                   '<br><i>Mileage Range</i>: %{x}<br>' + '<i>%{text}</i>',
+                   text=[f"Sample size: {cnt}" for cnt in car1.Count.tolist()],
+                   hovertemplate='<br><i>Mileage Range</i>: %{x} miles<br>' +
+                   '<i>Average Price</i>: $%{y}<br>' + '<i>%{text}</i>',
                    opacity=0.7),
             go.Bar(
                 name=makemodel2,
                 x=car2.Mileage_range,
                 y=car2.Average_Price,
                 error_y=dict(array=car2.STD_Price.tolist()),
-                text=[f"Sample size ={s}" for s in car2.Count.tolist()],
-                hovertemplate='<i>Average Price</i>: $%{y:.2f}' +
-                '<br><i>Mileage Range</i>: %{x}<br>' + '<i>%{text}</i>',
+                text=[f"Sample size: {cnt}" for cnt in car2.Count.tolist()],
+                hovertemplate='<br><i>Mileage Range</i>: %{x} miles<br>' +
+                '<i>Average Price</i>: $%{y}<br>' + '<i>%{text}</i>',
             )
         ])
         #fig.update_traces(marker_color="#d64161")
@@ -268,13 +270,14 @@ def update_graph(make_selected, model_selected, year_selected, make_selected2,
                           title_text=f"{makemodel1} vs {makemodel2}",
                           title_x=0.5)
         show_second_car = {**drop_down_group_style, 'display': 'block'}
+        first_vehicle_title = "Vehicle 1"
     elif tab == "tab-3":
         fig = None
         show_second_car = {**drop_down_group_style, 'display': 'none'}
 
     # Plotly Express
 
-    return fig, show_second_car
+    return fig, show_second_car, first_vehicle_title
 
 
 @app.callback(dash.dependencies.Output('slct_model', 'options'),
