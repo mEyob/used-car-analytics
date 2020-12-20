@@ -1,7 +1,9 @@
 from app import app
 from app import server
 import pandas as pd
+import numpy as np
 import data
+import estimate
 
 # Dash imports
 import plotly.express as px
@@ -37,6 +39,7 @@ drop_down_group_style = {
 # ----------------------------------------------------------------
 # Get makes and models of cars
 all_options = data.make_and_model()
+manufacturers = sorted(all_options.keys())
 
 # model years
 years = list(range(2020, 2009, -1))
@@ -45,7 +48,7 @@ years = list(range(2020, 2009, -1))
 app.layout = html.Div(
     style={"font-family": "Arial"},
     children=[
-        html.H1("Used Car Listing Price Statistics",
+        html.H2("Used Car Listing Prices in the Boston Metropolitan",
                 style={
                     'text-align': 'center',
                     'fontWeight': 'bold',
@@ -86,12 +89,13 @@ app.layout = html.Div(
         html.Div(
             [
                 html.Div([
-                    html.H6("Select vehicle", ),
+                    html.H6(children=["Select vehicle"],
+                            id="first_vehicle_title"),
                     dcc.Dropdown(id="slct_make",
                                  options=[{
                                      "label": make,
                                      "value": make
-                                 } for make in all_options.keys()],
+                                 } for make in manufacturers],
                                  multi=False,
                                  value="Toyota",
                                  placeholder="Select Make",
@@ -113,19 +117,26 @@ app.layout = html.Div(
                                  multi=False,
                                  placeholder="Select Year",
                                  style=drop_down_style),
+                    dcc.Input(id="input_mileage",
+                              type="number",
+                              placeholder="Enter Mileage",
+                              style={
+                                  'margin-top': '10px',
+                                  'display': 'none',
+                                  **drop_down_style
+                              }),
                 ],
                          style=drop_down_group_style),
                 html.Br(),
                 html.Div(
                     id="second-car",
                     children=[
-                        html.H6("Second vehicle", style={'margin-left': '5px'
-                                                         }),
+                        html.H6("Vehicle 2", style={'margin-left': '5px'}),
                         dcc.Dropdown(id="slct_make2",
                                      options=[{
                                          "label": make,
                                          "value": make
-                                     } for make in all_options.keys()],
+                                     } for make in manufacturers],
                                      multi=False,
                                      value="Honda",
                                      placeholder="Select Make",
@@ -195,18 +206,26 @@ app.layout = html.Div(
 # Connect the Plotly graphs with Dash Components
 @app.callback([
     Output(component_id='mileage_price_plot', component_property='figure'),
-    Output(component_id='second-car', component_property='style')
+    Output(component_id='second-car', component_property='style'),
+    Output(component_id='first_vehicle_title', component_property='children'),
+    Output(component_id='input_mileage', component_property='style')
 ], [
     Input(component_id='slct_make', component_property='value'),
     Input(component_id='slct_model', component_property='value'),
     Input(component_id='slct_year', component_property='value'),
+    Input(component_id='input_mileage', component_property='value'),
     Input(component_id='slct_make2', component_property='value'),
     Input(component_id='slct_model2', component_property='value'),
     Input(component_id='slct_year2', component_property='value'),
     Input(component_id='all-tabs-inline', component_property='value')
 ])
-def update_graph(make_selected, model_selected, year_selected, make_selected2,
-                 model_selected2, year_selected2, tab):
+def update_graph(make_selected, model_selected, year_selected,
+                 mileage_selected, make_selected2, model_selected2,
+                 year_selected2, tab):
+    show_second_car = {**drop_down_group_style, 'display': 'none'}
+    mileage_box = {**drop_down_style, 'display': 'none'}
+    first_vehicle_title = "Select Vehicle"
+
     if tab == "tab-1":
         df = data.get_grouped_data(make_selected, model_selected,
                                    year_selected)
@@ -226,7 +245,7 @@ def update_graph(make_selected, model_selected, year_selected, make_selected2,
             opacity=0.5)
         fig.update_traces(marker_color="#d64161")
         fig.layout.plot_bgcolor = "white"
-        show_second_car = {**drop_down_group_style, 'display': 'none'}
+
     elif tab == "tab-2":
         df = data.get_grouped_data(make_selected,
                                    model_selected,
@@ -236,7 +255,11 @@ def update_graph(make_selected, model_selected, year_selected, make_selected2,
                                    year2=year_selected2)
         # df = df[["MakeModel", "Mileage_range", "Average_Price"]]
         df.fillna(0, inplace=True)
-        makemodel1, makemodel2 = df.MakeModel.unique().tolist()
+        try:
+            makemodel1, makemodel2 = df.MakeModel.unique().tolist()
+        except ValueError:
+            makemodel1 = df.MakeModel.unique().tolist()[0]
+            makemodel2 = makemodel1
         car1 = df[df["MakeModel"] == makemodel1]
         car2 = df[df["MakeModel"] == makemodel2]
 
@@ -245,18 +268,18 @@ def update_graph(make_selected, model_selected, year_selected, make_selected2,
                    x=car1.Mileage_range,
                    y=car1.Average_Price,
                    error_y=dict(array=car1.STD_Price.tolist()),
-                   text=[f"Sample size ={s}" for s in car1.Count.tolist()],
-                   hovertemplate='<i>Average Price</i>: $%{y:.2f}' +
-                   '<br><i>Mileage Range</i>: %{x}<br>' + '<i>%{text}</i>',
+                   text=[f"Sample size: {cnt}" for cnt in car1.Count.tolist()],
+                   hovertemplate='<br><i>Mileage Range</i>: %{x} miles<br>' +
+                   '<i>Average Price</i>: $%{y}<br>' + '<i>%{text}</i>',
                    opacity=0.7),
             go.Bar(
                 name=makemodel2,
                 x=car2.Mileage_range,
                 y=car2.Average_Price,
                 error_y=dict(array=car2.STD_Price.tolist()),
-                text=[f"Sample size ={s}" for s in car2.Count.tolist()],
-                hovertemplate='<i>Average Price</i>: $%{y:.2f}' +
-                '<br><i>Mileage Range</i>: %{x}<br>' + '<i>%{text}</i>',
+                text=[f"Sample size: {cnt}" for cnt in car2.Count.tolist()],
+                hovertemplate='<br><i>Mileage Range</i>: %{x} miles<br>' +
+                '<i>Average Price</i>: $%{y}<br>' + '<i>%{text}</i>',
             )
         ])
         #fig.update_traces(marker_color="#d64161")
@@ -268,13 +291,67 @@ def update_graph(make_selected, model_selected, year_selected, make_selected2,
                           title_text=f"{makemodel1} vs {makemodel2}",
                           title_x=0.5)
         show_second_car = {**drop_down_group_style, 'display': 'block'}
+        first_vehicle_title = "Vehicle 1"
+
     elif tab == "tab-3":
-        fig = None
-        show_second_car = {**drop_down_group_style, 'display': 'none'}
+        df = data.get_data(Make=make_selected, Model=model_selected)
+        df.sort_values(by="Mileage", inplace=True)
+        mileage_per_year = 12000
+        predicted, model, transform, score = estimate.main(
+            df, mileage_per_year)
 
-    # Plotly Express
+        fig = go.Figure()
+        fig = px.scatter(df,
+                         x="Mileage",
+                         y="Price",
+                         hover_data=["Year", "Mileage", "Price"],
+                         opacity=0.5)
+        if year_selected and mileage_selected:
+            mileage_selected = int(mileage_selected)
+            if transform == "std":
+                mileage = (mileage_selected -
+                           df.Mileage.mean()) / df.Mileage.std()
+            elif transform == "log":
+                mileage = np.log2(mileage_selected)
+            estimated = int(
+                model.predict([[mileage,
+                                df.Year.max() - year_selected]])[0])
+            print(f"Estimated Price {estimated}")
+            print(
+                f"R2 on Test {score}",
+                f"Mileage coeff = {model.coef_[0]}, Year coff = {model.coef_[1]}"
+            )
+            fig.add_trace(
+                go.Scatter(x=[mileage_selected],
+                           y=[estimated],
+                           mode="markers",
+                           marker=dict(color='firebrick', size=10),
+                           name=f"Estimated Average Price"))
 
-    return fig, show_second_car
+        fig.add_trace(
+            go.Scatter(x=list(range(0, 150000, mileage_per_year)),
+                       y=predicted,
+                       mode='lines',
+                       line=dict(
+                           color='firebrick',
+                           width=4,
+                       ),
+                       name="Regression line"))
+        fig.layout.plot_bgcolor = "white"
+        fig.update_layout(
+            xaxis_title="Mileage (miles)",
+            yaxis_title="Price ($)",
+            title=
+            "Regression line: <i>Avg. Price = <b>a</b> f(Yr) + <b>b</b> g(Miles) + <b>c</b></i>",
+            title_x=0.5,
+            showlegend=True)
+        mileage_box = {
+            **drop_down_style, 'margin-top': '10px',
+            'width': '100%',
+            'display': 'block'
+        }
+
+    return fig, show_second_car, first_vehicle_title, mileage_box
 
 
 @app.callback(dash.dependencies.Output('slct_model', 'options'),
