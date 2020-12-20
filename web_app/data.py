@@ -42,6 +42,14 @@ def round_safe(x):
         return x
 
 
+def get_data(**kwargs):
+    """
+    """
+    query = ' & '.join(
+        [f"{key} == {repr(value)}" for key, value in kwargs.items()])
+    return df.query(query).copy()
+
+
 def get_grouped_data(make, model, year, **kwargs):
     """
     """
@@ -75,6 +83,7 @@ def make_and_model():
 
     for make in makes:
         models = df[df.Make == make].Model.unique().tolist()
+        models.sort()
         all_options[make] = models
     return all_options
 
