@@ -12,6 +12,20 @@ df = dd.read_csv("s3://used-car-listing-prices/*/*.csv",
                      'Price': 'object',
                      'Year': 'object'
                  })
+
+
+def merge_models(model):
+    if model == "ES":
+        return "ES 350"
+    elif model == "RX":
+        return "RX 350"
+    elif model == "GX":
+        return "GX 460"
+    else:
+        return model
+
+
+df["Model"] = df.Model.apply(merge_models)
 df = df.drop_duplicates().compute()
 
 
@@ -26,10 +40,8 @@ df["Year"] = df.Year.apply(safe_to_number)
 df["Mileage"] = df.Mileage.apply(safe_to_number)
 df["Price"] = df.Price.apply(safe_to_number)
 
-bins = [0, 1000, 20000, 40000, 60000, 80000, 100000, float('Inf')]
-labels = [
-    "<1000", "1K-20K", "20K-40K", "40K-60K", "60K-80K", "80K-100K", ">100K"
-]
+bins = [0, 1000, 20000, 40000, 70000, 100000, float('Inf')]
+labels = ["<1k", "1k-20k", "20k-40k", "40k-70k", "70k-100k", ">100k"]
 
 #df["Mileage_range"] = df["Mileage"].map_partitions(pd.cut, bins=bins, labels=labels)
 df["Mileage_range"] = pd.cut(df["Mileage"], bins=bins, labels=labels)
