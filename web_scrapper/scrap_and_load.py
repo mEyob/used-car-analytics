@@ -13,7 +13,7 @@ import argparse
 from datetime import datetime
 from scrapper import Scrapper
 
-NUM_OF_PAGES = 10
+NUM_OF_PAGES = 20
 DESTINATION_BUCKET = "used-car-listing-prices"
 DIR_NAME = os.path.dirname(__file__)
 

@@ -5,6 +5,7 @@ Module for scrapping and parsing used car data
 import os
 import time
 import random
+import shlex
 import logging
 import requests
 from datetime import datetime
@@ -146,6 +147,7 @@ class Scrapper():
             ).text.strip()
             header = header.strip("Certified ")
             year, make, model, *trim = header.split()
+            make, model, trim = self.cleanup(make, model, trim)
             if model.lower() != self.model.lower():
                 continue
             trim = " ".join(trim)
@@ -155,6 +157,24 @@ class Scrapper():
             mileage = mileage.replace(",", "").replace("miles", "").strip()
 
             self.listings.append([make, model, trim, year, mileage, price])
+
+    @staticmethod
+    def cleanup(make, model, trim):
+        known_issues = ["mazda", "lexus"]
+        if make.lower() == "mazda":
+            cln_model = model
+            if model in ["3", "6"]:
+                cln_model = "Mazda" + model
+            return make, cln_model.capitalize(), trim
+        elif make.lower() == "lexus" and model.lower() in ["es", "rx", "gx"]:
+            try:
+                model = f"{model.upper()} {trim[0]}"
+                trim = trim[1:]
+            except:
+                pass
+            return make, model, trim
+        else:
+            return make, model, trim
 
 
 if __name__ == "__main__":
@@ -182,7 +202,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     webscrapper = Scrapper(args.source, args.url, args.urlsuffix,
-                           *args.vdetail.split())
+                           *shlex.split(args.vdetail))
     webscrapper.fetch_batch(args.pages)
     with open("listing.csv", "a") as file_handler:
         csv_writer = csv.writer(file_handler,
