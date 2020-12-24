@@ -46,7 +46,7 @@ def main(df, mileage_per_year):
 
     # If score2 is not significantly better than score1
     # favor model1
-    margin = 0.03  #
+    margin = 0.1  #
     if score1 + margin > score2:
         transform = "std"
         mileage = (mileage - df.Mileage.mean()) / df.Mileage.std()
@@ -62,4 +62,4 @@ def main(df, mileage_per_year):
             np.array(list(zip(mileage, year))).reshape(-1, 2))
         model = model2
         score = score2
-    return predicted, model, transform, score
+    return predicted.astype("int"), model, transform, score
