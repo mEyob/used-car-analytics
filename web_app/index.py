@@ -237,10 +237,14 @@ app.layout = html.Div(
 # ------------------------------------------------------------------------------
 # Connect the Plotly graphs with Dash Components
 @app.callback([
-    Output(component_id='mileage_price_plot', component_property='figure'),
-    Output(component_id='second-car', component_property='style'),
-    Output(component_id='first_vehicle_title', component_property='children'),
-    Output(component_id='input_mileage', component_property='style')
+    Output(component_id="graph-div", component_property="style"),
+    Output(component_id="description-div", component_property="style"),
+    Output(component_id="description-div", component_property="children"),
+    Output(component_id="mileage_price_plot", component_property="figure"),
+    Output(component_id="first-car", component_property="style"),
+    Output(component_id="second-car", component_property="style"),
+    Output(component_id="first_vehicle_title", component_property="children"),
+    Output(component_id="input_mileage", component_property="style")
 ], [
     Input(component_id="slct_make", component_property="value"),
     Input(component_id="slct_model", component_property="value"),
@@ -254,95 +258,119 @@ app.layout = html.Div(
 def update_graph(make_selected, model_selected, year_selected,
                  mileage_selected, make_selected2, model_selected2,
                  year_selected2, tab):
-    show_second_car = {**drop_down_group_style, 'display': 'none'}
-    mileage_box = {**drop_down_style, 'display': 'none'}
+    show_first_car = {**drop_down_group_style, "display": "block"}
+    show_second_car = {**drop_down_group_style, "display": "none"}
+    show_graph = {"display": "none"}
+    description = html.P()
+    show_description = {"display": "none", **description_box_style}
+    mileage_box = {**drop_down_style, "display": "none"}
     first_vehicle_title = "Select Vehicle"
 
     if tab == "tab-1":
         df = data.get_grouped_data(make_selected, model_selected,
                                    year_selected)
-        fig = px.bar(
-            data_frame=df,
-            x="Mileage_range",
-            y="Average_Price",
-            hover_data=["Average_Price", "Count", "STD_Price"],
-            error_y="STD_Price",
-            #color_continuous_scale=px.colors.sequential.YlOrRd,
-            labels={
-                "STD_Price": "Standard deviation (USD)",
-                "Average_Price": "Average Price ($)",
-                "Mileage_range": "Mileage (miles)",
-                "Count": "Sample size"
-            },
-            opacity=0.5)
-        fig.update_traces(marker_color="#d64161")
-        fig.layout.plot_bgcolor = "white"
-
-    elif tab == "tab-2":
-        df = data.get_grouped_data(make_selected,
-                                   model_selected,
-                                   year_selected,
-                                   make2=make_selected2,
-                                   model2=model_selected2,
-                                   year2=year_selected2)
-        # df = df[["MakeModel", "Mileage_range", "Average_Price"]]
-        df.fillna(0, inplace=True)
-        try:
-            makemodel1, makemodel2 = df.MakeModel.unique().tolist()
-        except ValueError:
-            makemodel1 = df.MakeModel.unique().tolist()[0]
-            makemodel2 = makemodel1
-        car1 = df[df["MakeModel"] == makemodel1]
-        car2 = df[df["MakeModel"] == makemodel2]
-
-        fig = go.Figure(data=[
-            go.Bar(name=makemodel1,
-                   x=car1.Mileage_range,
-                   y=car1.Average_Price,
-                   error_y=dict(array=car1.STD_Price.tolist()),
-                   text=[f"Sample size: {cnt}" for cnt in car1.Count.tolist()],
-                   hovertemplate='<br><i>Mileage Range</i>: %{x} miles<br>' +
-                   '<i>Average Price</i>: $%{y}<br>' + '<i>%{text}</i>',
-                   opacity=0.7),
-            go.Bar(
-                name=makemodel2,
-                x=car2.Mileage_range,
-                y=car2.Average_Price,
-                error_y=dict(array=car2.STD_Price.tolist()),
-                text=[f"Sample size: {cnt}" for cnt in car2.Count.tolist()],
-                hovertemplate='<br><i>Mileage Range</i>: %{x} miles<br>' +
-                '<i>Average Price</i>: $%{y}<br>' + '<i>%{text}</i>',
-            )
-        ])
-        #fig.update_traces(marker_color="#d64161")
-        fig.layout.plot_bgcolor = "white"
-        fig.update_layout(barmode='group',
-                          hoverlabel_align='right',
+            fig = go.Figure(go.Bar(
+                name="",
+                x=df.Mileage_range,
+                y=df.Average_Price,
+                error_y=dict(array=df.STD_Price.tolist()),
+                marker=dict(color="#d64161"),
+                text=[f"Sample size: {cnt}" for cnt in df.Count.tolist()],
+                hovertemplate="<br><i>Mileage Range</i>: %{x} miles<br>" +
+                   "<i>Average Price</i>: $%{y}<br>" + "<i>%{text}</i>",
+                opacity=0.6))
+            #fig.update_traces(marker_color="#d64161")
+            fig.layout.plot_bgcolor = "#f9f9f9"
+            fig.update_layout(
+                          hoverlabel_align="right",
                           xaxis_title="Mileage (miles)",
                           yaxis_title="Average Price ($)",
-                          title_text=f"{makemodel1} vs {makemodel2}",
+                          title_text=f"{car} Listing Price",
                           title_x=0.5)
+            desc = generate_description(df, "#d64161", make_selected, model_selected, year_selected)
+            if desc:
+                description = html.P(
+                    children = [
+                    html.Ul(
+                        children=[desc,
+                        html.Li(html.Font("Hover over the bars to check the sample size. Larger sample size has a higher chance of yielding accurate statistics"))])])
+                show_description["display"] = "inline-block"
+            show_graph["display"] = "block"
+
+    elif tab == "tab-2":
+        if all([make_selected, model_selected, make_selected2, model_selected2]):
+            df = data.get_grouped_data(make_selected,
+                                    model_selected,
+                                    year_selected,
+                                    make2=make_selected2,
+                                    model2=model_selected2,
+                                    year2=year_selected2)
+            # df = df[["MakeModel", "Mileage_range", "Average_Price"]]
+            #df.fillna(0, inplace=True)
+            try:
+                makemodel1, makemodel2 = df.MakeModel.unique().tolist()
+            except ValueError:
+                makemodel1 = df.MakeModel.unique().tolist()[0]
+                makemodel2 = makemodel1
+            car1 = df[df["MakeModel"] == makemodel1]
+            car2 = df[df["MakeModel"] == makemodel2]
+
+            fig = go.Figure(data=[
+                go.Bar(name=makemodel1,
+                    x=car1.Mileage_range,
+                    y=car1.Average_Price,
+                    error_y=dict(array=car1.STD_Price.tolist()),
+                    marker=dict(color="rgb(82,188,163)"),
+                    text=[f"Sample size: {cnt}" for cnt in car1.Count.tolist()],
+                    hovertemplate="<br><i>Mileage Range</i>: %{x} miles<br>" +
+                    "<i>Average Price</i>: $%{y}<br>" + "<i>%{text}</i>",
+                    opacity=0.7),
+                go.Bar(
+                    name=makemodel2,
+                    x=car2.Mileage_range,
+                    y=car2.Average_Price,
+                    error_y=dict(array=car2.STD_Price.tolist()),
+                    marker=dict(color="#d64161"),
+                    text=[f"Sample size: {cnt}" for cnt in car2.Count.tolist()],
+                    hovertemplate="<br><i>Mileage Range</i>: %{x} miles<br>" +
+                    "<i>Average Price</i>: $%{y}<br>" + "<i>%{text}</i>",
+                    opacity=0.7
+                )
+            ])
+            fig.layout.plot_bgcolor = "#f9f9f9"
+            fig.update_layout(barmode="group",
+                            hoverlabel_align="right",
+                            xaxis_title="Mileage (miles)",
+                            yaxis_title="Average Price ($)",
+                            title_text=f"{makemodel1} vs {makemodel2}",
+                            title_x=0.5)
         show_second_car = {**drop_down_group_style, 'display': 'block'}
         first_vehicle_title = "Vehicle 1"
 
     elif tab == "tab-3":
-        df = data.get_data(Make=make_selected, Model=model_selected)
-        df.sort_values(by="Mileage", inplace=True)
-        mileage_per_year = 12000
-        predicted, model, transform, score = estimate.main(
-            df, mileage_per_year)
+        if all([make_selected, model_selected, year_selected, mileage_selected]):
+            df = data.get_data(Make=make_selected, Model=model_selected)
+            df.sort_values(by="Mileage", inplace=True)
+            mileage_per_year = 12000
+            predicted, model, transform, score = estimate.main(
+                df, mileage_per_year)
 
-        fig = go.Figure()
-        fig = px.scatter(df,
-                         x="Mileage",
-                         y="Price",
-                         hover_data=["Year", "Mileage", "Price"],
-                         opacity=0.5)
-        if year_selected and mileage_selected:
+            mileage_std = df.Mileage.std()
+
+            fig = go.Figure(go.Scatter(
+                         x=df.Mileage,
+                         y=df.Price,
+                         mode="markers",
+                         name="Data points",
+                         marker=dict(color="rgb(82,188,163)"),
+                         text=[f"Year: {year}" for year in df.Year.astype("int")],
+                         hovertemplate="<br><i>Mileage</i>: %{x}<br>" +
+                         "<i>%{text}</i>" + "<br><i>Price</i>: $%{y}<br>",
+                         opacity=0.5))
             mileage_selected = int(mileage_selected)
             if transform == "std":
                 mileage = (mileage_selected -
-                           df.Mileage.mean()) / df.Mileage.std()
+                           df.Mileage.mean()) / mileage_std
             elif transform == "log":
                 mileage = np.log2(mileage_selected)
             estimated = int(
