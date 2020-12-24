@@ -344,7 +344,18 @@ def update_graph(make_selected, model_selected, year_selected,
                             yaxis_title="Average Price ($)",
                             title_text=f"{makemodel1} vs {makemodel2}",
                             title_x=0.5)
-        show_second_car = {**drop_down_group_style, 'display': 'block'}
+            desc1 = generate_description(car1, "rgb(82,188,163)", make_selected, model_selected, year_selected)
+            desc2 = generate_description(car2, "#d64161", make_selected2, model_selected2, year_selected2)
+            if desc1 or desc2:
+                description = html.P(
+                    children = [
+                    html.Ul(
+                        children=[desc1,
+                        desc2,
+                        html.Li(html.Font("Hover over the bars to check the sample size. Larger sample size has a higher chance of yielding accurate statistics"))])])
+                show_description["display"] = "inline-block"
+            show_graph["display"] = "block"
+        show_second_car = {**drop_down_group_style, "display": "block"}
         first_vehicle_title = "Vehicle 1"
 
     elif tab == "tab-3":
@@ -404,7 +415,16 @@ def update_graph(make_selected, model_selected, year_selected,
             title=
             "Regression line: <i>Avg. Price = <b>a</b> f(Yr) + <b>b</b> g(Miles) + <b>c</b></i>",
             title_x=0.5,
-            showlegend=True)
+                showlegend=True,
+                hoverlabel=dict(
+                    font_size=14,
+                    font_family="Rockwell"
+                    )
+                )
+            description = generate_description(df, "#d64161", make_selected, model_selected, year_selected, model, mileage_selected, estimated, score, mileage_std)
+            show_description["display"] = "inline-block"
+            show_graph["display"] = "block"
+            
         mileage_box = {
             **drop_down_style, 'margin-top': '10px',
             'width': '100%',
@@ -424,8 +444,68 @@ def update_models_dropdown(make):
               [dash.dependencies.Input('slct_make2', 'value')])
 def update_models2_dropdown(make):
     if make:
-        return [{'label': i, 'value': i} for i in all_options[make]]
+        return [{"label": i, "value": i} for i in all_options[make]], None
+    else:
+        return [], None
 
+def generate_description(df, color, make_selected, model_selected, year_selected, reg_model=None, mileage=None, predicted=None, score=None, mileage_std=None):
+    """
+    """
+    desc = None
+    if reg_model:
+        depr_mileage = -1 * round(reg_model.coef_[0] / 500) * 500
+        depr_year = -1 * round(reg_model.coef_[1] / 100) * 100
+        mileage_std = round(mileage_std / 5000) * 5000
+        desc = [
+            html.Li(
+                children=[
+                    html.Font(f"The  estimated avg. listing price of a "),
+                    html.Font(f"{year_selected} {make_selected} {model_selected} ", style=dict(color=color)),
+                    html.Font(f"at {mileage:,} miles is "),
+                    html.Font(f"${predicted:,}.", style=dict(color=color)),
+                ]),
+            html.Li(
+                children=[
+                    html.Font(f"Within the first {100000:,} miles, "),
+                    html.Font(f"{make_selected} {model_selected} ", style=dict(color=color)),
+                    html.Font(f"cars depreciate by about "),
+                    html.Font(f"${depr_mileage:,} ", style=dict(color=color)),
+                    html.Font(f"for every "),
+                    html.Font(f"{mileage_std:,} ", style=dict(color=color)),
+                    html.Font("miles")
+                ]
+            ),
+            html.Li(
+                    children=[
+                        html.Font(f"A further depreciation of "),
+                        html.Font(f"${depr_year:,} ", style=dict(color=color)),
+                        html.Font("also happens as the model gets older by a year")]
+            ),
+            html.Li(
+                children=["These estimates are generated using the multiple linear regression technique which has the following assumptions"]
+            )
+            
+        ]
+        return desc
+    newer_price, older_price = None, None
+    newer_mileage, older_mileage = None, None
+    year = year_selected or ""
+    df = df[~df.Average_Price.isna()]
+    try:
+        newer_price, older_price = df[~df.Average_Price.isna()].iloc[[0,-1],2].tolist()
+        newer_mileage, older_mileage = df[~df.Average_Price.isna()].iloc[[0,-1],0].tolist()
+    except IndexError:
+        pass
+    if newer_price and older_price:
+        value_lost = int(100 * (newer_price - older_price) / newer_price)
+        desc = html.Li(
+            children=[html.Font(f"As mileage increases from "),
+            html.I(f'"{newer_mileage}" to "{older_mileage}", '),
+            html.Font(f"{year} {make_selected} {model_selected} ", style=dict(color=color)), 
+            html.Font("cars lose about "),
+            html.Font(f"{value_lost}% ", style=dict(color=color)),
+            html.Font(f"of their value.")])
+    return desc
 
 if __name__ == '__main__':
     app.run_server(debug=True)
