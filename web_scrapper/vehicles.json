@@ -26,6 +26,22 @@
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?sourceContext=carGurusHomePageModel&entitySelectingHelper.selectedEntity=d291&zip=02169",
                     "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=toyota&model=avalon&radius=50&isUsurp=true&wz=17"
                 }
+            },
+            {
+                "type": "compact-suv",
+                "model": "RAV4",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d306",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=toyota&model=rav4&isUsurp=true&wz=17"
+                }
+            },
+            {
+                "type": "mid-size-suv",
+                "model": "highlander",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d298",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=toyota&model=highlander&isUsurp=true&wz=17"
+                }
             }
         ]
     },
@@ -55,6 +71,22 @@
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d242",
                     "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=nissan&model=maxima&radius=50&isUsurp=true&wz=17"
                 }
+            },
+            {
+                "type": "compact-suv",
+                "model": "rogue",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d1047",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=nissan&model=rogue&isUsurp=true&wz=17"
+                }
+            },
+            {
+                "type": "mid-size-suv",
+                "model": "pathfinder",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d245",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=nissan&model=pathfinder&isUsurp=true&wz=17"
+                }
             }
         ]
     },
@@ -76,6 +108,22 @@
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d585",
                     "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=honda&model=accord&radius=50&isUsurp=true&wz=17"
+                }
+            },
+            {
+                "type": "compact-suv",
+                "model": "CR-V",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d589",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=honda&model=cr-v&isUsurp=true&wz=17"
+                }
+            },
+            {
+                "type": "mid-size-suv",
+                "model": "pilot",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d594",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=honda&model=pilot&isUsurp=true&wz=17"
                 }
             }
         ]
@@ -106,6 +154,22 @@
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d355",
                     "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=ford&model=taurus&radius=50&isUsurp=true&wz=17"
                 }
+            },
+            {
+                "type": "compact-suv",
+                "model": "escape",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d330",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=ford&model=escape&isUsurp=true&wz=17"
+                }
+            },
+            {
+                "type": "mid-size-suv",
+                "model": "explorer",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d334",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=ford&model=explorer&isUsurp=true&wz=17"
+                }
             }
 
         ]
@@ -128,8 +192,15 @@
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d92",
                     "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=hyundai&model=sonata&radius=50&isUsurp=true&wz=17"
                 }
+            },
+            {
+                "type": "compact-suv",
+                "model": "tucson",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d92",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=hyundai&model=tucson&isUsurp=true&wz=17"
+                }
             }
-
         ]
     },
     {
@@ -158,6 +229,22 @@
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d622",
                     "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=chevrolet&model=impala&radius=50&isUsurp=true&wz=17"
                 }
+            },
+            {
+                "type": "compact-suv",
+                "model": "equinox",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d616",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=chevrolet&model=equinox&isUsurp=true&wz=17"
+                }
+            },
+            {
+                "type": "mid-size-suv",
+                "model": "traverse",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d1521",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=chevrolet&model=traverse&isUsurp=true&wz=17"
+                }
             }
         ]
     },
@@ -178,6 +265,22 @@
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d202",
                     "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=volkswagen&model=passat&radius=50&isUsurp=true&wz=17"
+                }
+            },
+            {
+                "type": "compact-suv",
+                "model": "tiguan",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d1104",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=volkswagen&model=tiguan&isUsurp=true&wz=17"
+                }
+            },
+            {
+                "type": "mid-size-sedan",
+                "model": "atlas",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d2507",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=volkswagen&model=atlas&isUsurp=true&wz=17"
                 }
             }
 
@@ -201,6 +304,22 @@
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d215",
                     "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=mazda&model=6&radius=50&isUsurp=true&wz=17"
                 }
+            },
+            {
+                "type": "compact-suv",
+                "model": "cx-5",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d2133",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=mazda&model=cx-5&isUsurp=true&wz=17"
+                }
+            },
+            {
+                "type": "mid-size-suv",
+                "model": "cx-9",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d1023",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=mazda&model=cx-9&isUsurp=true&wz=17"
+                }
             }
 
         ]
@@ -222,6 +341,22 @@
                 "base_url": {
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d378",
                     "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=subaru&model=legacy&radius=50&isUsurp=true&wz=17"
+                }
+            },
+            {
+                "type": "compact-suv",
+                "model": "forester",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d374",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=subaru&model=forester&isUsurp=true&wz=17"
+                }
+            },
+            {
+                "type": "mid-size-suv",
+                "model": "ascent",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d2650",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=subaru&model=ascent&isUsurp=true&wz=17"
                 }
             }
         ]
@@ -252,8 +387,119 @@
                     "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d2215",
                     "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&make=kia&model=cadenza&radius=50&isUsurp=true&wz=17"
                 }
+            },
+            {
+                "type": "compact-suv",
+                "model": "sportage",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d164",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=kia&model=sportage&isUsurp=true&wz=17"
+                }
+            },
+            {
+                "type": "mid-size-suv",
+                "model": "sorento",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d162",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=kia&model=sorento&isUsurp=true&wz=17"
+                }
             }
 
+        ]
+    },
+    {
+        "make": "lexus",
+        "vehicles":[
+            {
+                "type": "mid-size-sedan",
+                "model": "ES 350",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d917",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=lexus&model=es-350&isUsurp=true&wz=17"
+                }
+            },
+            {
+                "type": "compact-suv",
+                "model": "RX 350",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d919",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=lexus&model=rx-350&isUsurp=true&wz=17"
+                }
+            },
+            {
+                "type": "mid-size-suv",
+                "model": "GX 460",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d2063",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=lexus&model=gx-460&isUsurp=true&wz=17"
+                }
+            }
+        ]
+    },
+    {
+        "make": "infiniti",
+        "vehicles":[
+            {
+                "type": "compact-sedan",
+                "model": "Q50",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d2207",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=infiniti&model=q50&isUsurp=true&wz=17"
+                }
+            },
+            {
+                "type": "compact-suv",
+                "model": "QX50",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d2247",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=infiniti&model=qx50&isUsurp=true&wz=17"
+                }
+            },
+            {
+                "type": "mid-size-suv",
+                "model": "QX60",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d2243",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=infiniti&model=qx60&isUsurp=true&wz=17"
+                }
+            }
+        ]
+    },
+    {
+        "make": "acura",
+        "vehicles":[
+            {
+                "type": "compact-sedan",
+                "model": "ILX",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d2137",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=acura&model=ilx&isUsurp=true&wz=17"
+                }
+            },
+            {
+                "type": "mid-size-sedan",
+                "model": "TLX",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d2278",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=acura&model=tlx&isUsurp=true&wz=17"
+                }
+            },
+            {
+                "type": "compact-suv",
+                "model": "RDX",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d921",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=acura&model=rdx&isUsurp=true&wz=17"
+                }
+            },
+            {
+                "type": "mid-size-suv",
+                "model": "MDX",
+                "base_url": {
+                    "cg": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?zip=02169&showNegotiable=true&sortDir=ASC&sourceContext=carGurusHomePageModel&distance=50&sortType=DEAL_SCORE&entitySelectingHelper.selectedEntity=d16",
+                    "ed": "https://www.edmunds.com/inventory/srp.html?inventorytype=used%2Ccpo&radius=50&make=acura&model=mdx&isUsurp=true&wz=17"
+                }
+            }
         ]
     }
 ]
