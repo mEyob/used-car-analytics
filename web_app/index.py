@@ -15,12 +15,37 @@ from dash.dependencies import Input, Output
 
 # ---------------------------------------------------------------
 # styling options
-tab_style = {"color": "#b7d7e8"}
+tab_style = {
+    "color": "#b7d7e8",
+    "borderTopLeftRadius": "3px",
+    "borderTopRightRadius": "3px",
+    "borderTop": "3px solid transparent",
+    "borderLeft": "0px",
+    "borderRight": "0px",
+    "borderBottom": "0px",
+    "backgroundColor": "#fafbfc",
+    "padding": "12px",
+    "fontFamily": "system-ui",
+    "display": "flex",
+    "align-items": "center",
+    "justify-content": "center",
+    }
 
 tab_selected_style = {
     "borderTop": "3px solid #87bdd8",
+    "boxShadow": "1px 1px 0px white",
+    "borderLeft": "1px solid lightgrey",
+    "borderRight": "1px solid lightgrey",
     "color": "#87bdd8",
     "fontWeight": "bold",
+}
+
+tab_group_style = {
+    "borderTopLeftRadius": "3px",
+    "backgroundColor": "#f9f9f9",
+    "padding": "0px 24px",
+    "border-bottom": "1px solid #d6d6d6",
+    "width": "85%"
 }
 
 drop_down_style = {
@@ -33,7 +58,17 @@ drop_down_group_style = {
     "color": "white",
     "padding": "5px 25px 10px 25px",
     "background-color": "#b7d7e8",
-    "border-radius": "10px"
+    "border-radius": "5px",
+    "border-color": "#6e7575",
+    "border-width": "1px",
+    "border-style": "solid",
+}
+
+description_box_style = {
+    "color": "#8d9db6",
+    "width": "25%",
+    "padding": "10px",
+    "border-radius": "5px"
 }
 
 # ----------------------------------------------------------------
@@ -46,18 +81,18 @@ years = list(range(2020, 2009, -1))
 # ----------------------------------------------------------------
 # App layout
 app.layout = html.Div(
-    style={"font-family": "Arial"},
+    style={"font-family": "system-ui"},
     children=[
         html.H2("Used Car Listing Prices in the Boston Metropolitan",
                 style={
-                    'text-align': 'center',
-                    'fontWeight': 'bold',
+                    "text-align": "center",
+                    "fontWeight": "bold",
                     "color": "#87bdd8"
                 }),
         dcc.Tabs(
             id="all-tabs-inline",
-            className="all-tabs-inline",
-            value="tab-1",
+            #className="all-tabs-inline",
+            style = tab_group_style,
             children=[
                 dcc.Tab(
                     label="Listing Price",
@@ -105,8 +140,8 @@ app.layout = html.Div(
                                  value="Camry",
                                  placeholder="Select model",
                                  style={
-                                     'margin-top': '10px',
-                                     'margin-bottom': '10px',
+                                     "margin-top": "10px",
+                                     "margin-bottom": "10px",
                                      **drop_down_style
                                  }),
                     dcc.Dropdown(id="slct_year",
@@ -121,8 +156,8 @@ app.layout = html.Div(
                               type="number",
                               placeholder="Enter Mileage",
                               style={
-                                  'margin-top': '10px',
-                                  'display': 'none',
+                                  "margin-top": "10px",
+                                  "display": "none",
                                   **drop_down_style
                               }),
                 ],
@@ -131,7 +166,7 @@ app.layout = html.Div(
                 html.Div(
                     id="second-car",
                     children=[
-                        html.H6("Vehicle 2", style={'margin-left': '5px'}),
+                        html.H6("Vehicle 2", style={"margin-left": "5px"}),
                         dcc.Dropdown(id="slct_make2",
                                      options=[{
                                          "label": make,
@@ -146,8 +181,8 @@ app.layout = html.Div(
                                      value="Accord",
                                      placeholder="Select model",
                                      style={
-                                         'margin-top': '10px',
-                                         'margin-bottom': '10px',
+                                         "margin-top": "10px",
+                                         "margin-bottom": "10px",
                                          **drop_down_style
                                      }),
                         dcc.Dropdown(
@@ -172,10 +207,11 @@ app.layout = html.Div(
             },
             className="six columns",
         ),
-        html.Div([dcc.Graph(id='mileage_price_plot', figure={})],
-                 id="chart-div",
+        html.Div(
+            id = "graph-div",
+            children = [dcc.Graph(id="mileage_price_plot", figure={})],
                  style={
-                     "display": "inline-block",
+                     "display": "none",
                      "width": "50%"
                  },
                  className="six columns"),
@@ -183,12 +219,8 @@ app.layout = html.Div(
             id="description-div",
             className="six columns",
             style={
-                "display": "inline-block",
-                #"background-color": "#b7d7e8",
-                "color": "#8d9db6",
-                "width": "20%",
-                "padding": "10px",
-                "border-radius": "5px"
+                "display": "none",
+                **description_box_style
             },
             children=[
                 html.P("The second question and more of two more"),
@@ -210,14 +242,14 @@ app.layout = html.Div(
     Output(component_id='first_vehicle_title', component_property='children'),
     Output(component_id='input_mileage', component_property='style')
 ], [
-    Input(component_id='slct_make', component_property='value'),
-    Input(component_id='slct_model', component_property='value'),
-    Input(component_id='slct_year', component_property='value'),
-    Input(component_id='input_mileage', component_property='value'),
-    Input(component_id='slct_make2', component_property='value'),
-    Input(component_id='slct_model2', component_property='value'),
-    Input(component_id='slct_year2', component_property='value'),
-    Input(component_id='all-tabs-inline', component_property='value')
+    Input(component_id="slct_make", component_property="value"),
+    Input(component_id="slct_model", component_property="value"),
+    Input(component_id="slct_year", component_property="value"),
+    Input(component_id="input_mileage", component_property="value"),
+    Input(component_id="slct_make2", component_property="value"),
+    Input(component_id="slct_model2", component_property="value"),
+    Input(component_id="slct_year2", component_property="value"),
+    Input(component_id="all-tabs-inline", component_property="value")
 ])
 def update_graph(make_selected, model_selected, year_selected,
                  mileage_selected, make_selected2, model_selected2,
