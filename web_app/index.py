@@ -121,6 +121,7 @@ app.layout = html.Div(
             ],
         ),
         html.Br(),
+        html.Br(),
         html.Div(
             [
                 html.Div(id="first-car",
@@ -506,6 +507,8 @@ def generate_description(df,
         depr_year = -1 * round(reg_model.coef_[1] / 100) * 100
         mileage_std = round(mileage_std / 5000) * 5000
         desc = [
+            html.Br(),
+            html.Br(),
             html.Li(children=[
                 html.Font(f"The  estimated avg. listing price of a "),
                 html.Font(f"{year_selected} {make_selected} {model_selected} ",
@@ -529,7 +532,15 @@ def generate_description(df,
                 html.Font("also happens as the model gets older by a year")
             ]),
             html.Li(children=[
-                "These estimates are generated using the multiple linear regression technique which has the following assumptions"
+                html.Font(
+                    "The estimates are based on the multiple linear regression"
+                ),
+                html.Font("statistical method, which has "),
+                html.
+                A("these assumptions",
+                  href=
+                  "https://statisticsbyjim.com/regression/ols-linear-regression-assumptions/",
+                  target="_blank")
             ])
         ]
         return desc
@@ -559,4 +570,4 @@ def generate_description(df,
 
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run_server(debug=True, port=8080)
