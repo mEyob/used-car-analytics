@@ -147,3 +147,4 @@ tmp/
 # terraform state file
 terraform.tfstate*
 .terraform/
+*tmp.py
