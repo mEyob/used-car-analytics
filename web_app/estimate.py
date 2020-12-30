@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 from sklearn.linear_model import LassoCV, Lasso
 from sklearn.model_selection import train_test_split
 
@@ -36,13 +37,22 @@ def main(df, mileage_per_year):
     df["Mileage_log"] = transformer(df.Mileage, np.log2)
     df["Year_centered"] = transformer(df.Year, "center")
 
+    df = pd.get_dummies(df, columns=["clean_trim"])
+    print(df)
+    trim_columns = [
+        column for column in df.columns if column.startswith("clean_trim")
+    ]
+    trim_binary = [0 for col in trim_columns if col != "clean_trim_Other"]
+
     mileage = np.arange(0, 150000, mileage_per_year)
     year = mileage // mileage_per_year
 
     model1, score1 = train_and_test(
-        df[["Mileage_std", "Year_centered", "Price"]])
+        df.drop(["Mileage", "Year", "Mileage_log", "clean_trim_Other"],
+                axis=1))
     model2, score2 = train_and_test(
-        df[["Mileage_log", "Year_centered", "Price"]])
+        df.drop(["Mileage", "Year", "Mileage_std", "clean_trim_Other"],
+                axis=1))
 
     # If score2 is not significantly better than score1
     # favor model1
@@ -50,16 +60,15 @@ def main(df, mileage_per_year):
     if score1 + margin > score2:
         transform = "std"
         mileage = (mileage - df.Mileage.mean()) / df.Mileage.std()
-        predicted = model1.predict(
-            np.array(list(zip(mileage, year))).reshape(-1, 2))
         model = model1
         score = score1
     else:
         transform = "log"
         mileage[0] = 1
         mileage = np.log2(mileage)
-        predicted = model2.predict(
-            np.array(list(zip(mileage, year))).reshape(-1, 2))
         model = model2
         score = score2
-    return predicted.astype("int"), model, transform, score
+    mileage_year = list(zip(mileage, year))
+    mileage_year_trim = [[m, yr, *trim_binary] for m, yr in mileage_year]
+    predicted = model.predict(np.array(mileage_year_trim))
+    return predicted.astype("int"), model, transform, score, trim_columns
