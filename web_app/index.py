@@ -4,9 +4,13 @@ import pandas as pd
 import numpy as np
 import data
 import estimate
+import styles
+import helper
+import data
+
 
 # Dash imports
-import plotly.express as px
+import dash
 import plotly.graph_objects as go
 import dash
 import dash_core_components as dcc
@@ -81,7 +85,7 @@ years = list(range(2020, 2009, -1))
 # ----------------------------------------------------------------
 # App layout
 app.layout = html.Div(
-    style={"font-family": "system-ui"},
+    style=styles.dashboard_style,
     children=[
         html.H2("Used Car Listing Prices in the Boston Metropolitan",
                 style={
@@ -91,32 +95,31 @@ app.layout = html.Div(
                 }),
         dcc.Tabs(
             id="all-tabs-inline",
-            #className="all-tabs-inline",
-            style=tab_group_style,
+            style=styles.tab_group_style,
             children=[
                 dcc.Tab(
                     label="Listing Price",
                     value="tab-1",
-                    style=tab_style,
-                    selected_style=tab_selected_style,
+                    style=styles.tab_style,
+                    selected_style=styles.tab_selected_style,
                 ),
                 dcc.Tab(
                     label="Compare Listing Prices",
                     value="tab-2",
-                    style=tab_style,
-                    selected_style=tab_selected_style,
+                    style=styles.tab_style,
+                    selected_style=styles.tab_selected_style,
                 ),
                 dcc.Tab(
                     label="Estimate Listing Price",
                     value="tab-3",
-                    style=tab_style,
-                    selected_style=tab_selected_style,
+                    style=styles.tab_style,
+                    selected_style=styles.tab_selected_style,
                 ),
                 dcc.Tab(
                     label="About the dashboard",
                     value="tab-4",
-                    style=tab_style,
-                    selected_style=tab_selected_style,
+                    style=styles.tab_style,
+                    selected_style=styles.tab_selected_style,
                 )
             ],
         ),
@@ -136,7 +139,7 @@ app.layout = html.Div(
                                           multi=False,
                                           value="Toyota",
                                           placeholder="Select Make",
-                                          style=drop_down_style),
+                                          style=styles.drop_down_style),
                              dcc.Dropdown(id="slct_model",
                                           multi=False,
                                           value="Camry",
@@ -144,7 +147,7 @@ app.layout = html.Div(
                                           style={
                                               "margin-top": "10px",
                                               "margin-bottom": "10px",
-                                              **drop_down_style
+                                              **styles.drop_down_style
                                           }),
                              dcc.Dropdown(id="slct_year",
                                           options=[{
@@ -160,10 +163,10 @@ app.layout = html.Div(
                                        style={
                                            "margin-top": "10px",
                                            "display": "none",
-                                           **drop_down_style
+                                           **styles.drop_down_style
                                        }),
                          ],
-                         style=drop_down_group_style),
+                         style=styles.drop_down_group_style),
                 html.Br(),
                 html.Div(
                     id="second-car",
@@ -177,7 +180,7 @@ app.layout = html.Div(
                                      multi=False,
                                      value="Honda",
                                      placeholder="Select Make",
-                                     style=drop_down_style),
+                                     style=styles.drop_down_style),
                         dcc.Dropdown(id="slct_model2",
                                      multi=False,
                                      value="Accord",
@@ -185,7 +188,7 @@ app.layout = html.Div(
                                      style={
                                          "margin-top": "10px",
                                          "margin-bottom": "10px",
-                                         **drop_down_style
+                                         **styles.drop_down_style
                                      }),
                         dcc.Dropdown(
                             id="slct_year2",
@@ -196,17 +199,14 @@ app.layout = html.Div(
                             multi=False,
                             #value=2015,
                             placeholder="Select year",
-                            style=drop_down_style),
+                            style=styles.drop_down_style),
                     ],
                     style={
-                        **drop_down_group_style, "display": "none"
+                        **styles.drop_down_group_style, "display": "none"
                     },
                 )
             ],
-            style={
-                "display": "inline-block",
-                "width": "15%",
-            },
+            style=styles.input_group_style,
             className="six columns",
         ),
         html.Div(id="graph-div",
@@ -220,7 +220,7 @@ app.layout = html.Div(
                  className="six columns",
                  style={
                      "display": "none",
-                     **description_box_style
+                     **styles.description_box_style
                  },
                  children=[
                      html.P("The second question and more of two more"),
@@ -256,14 +256,15 @@ app.layout = html.Div(
     Input(component_id="all-tabs-inline", component_property="value")
 ])
 def update_graph(make_selected, model_selected, year_selected,
-                 mileage_selected, make_selected2, model_selected2,
-                 year_selected2, tab):
-    show_first_car = {**drop_down_group_style, "display": "block"}
-    show_second_car = {**drop_down_group_style, "display": "none"}
+                 trim_selected, mileage_selected, make_selected2, 
+                 model_selected2,year_selected2, tab):
+    show_first_car = {**styles.drop_down_group_style, "display": "block"}
+    show_second_car = {**styles.drop_down_group_style, "display": "none"}
     show_graph = {"display": "none"}
     description = html.P()
-    show_description = {"display": "none", **description_box_style}
-    mileage_box = {**drop_down_style, "display": "none"}
+    show_description = {"display": "none", **styles.description_box_style}
+    mileage_box = {**styles.drop_down_style, "display": "none"}
+    trim_box = {**styles.drop_down_style, "display": "none"}
     first_vehicle_title = "Select Vehicle"
     fig = go.Figure()
 
@@ -375,7 +376,7 @@ def update_graph(make_selected, model_selected, year_selected,
                 ])
                 show_description["display"] = "inline-block"
             show_graph["display"] = "block"
-        show_second_car = {**drop_down_group_style, "display": "block"}
+        show_second_car = {**styles.drop_down_group_style, "display": "block"}
         first_vehicle_title = "Vehicle 1"
 
     elif tab == "tab-3":
@@ -460,10 +461,11 @@ def update_graph(make_selected, model_selected, year_selected,
             show_graph["display"] = "block"
 
         mileage_box = {
-            **drop_down_style, "margin-top": "10px",
+            **styles.drop_down_style, "margin-top": "10px",
             "width": "100%",
             "display": "block"
         }
+        trim_box = {**styles.drop_down_style, "margin-top": "10px", "display": "block"}
     elif tab == "tab-4":
         show_first_car["display"] = "none"
 
