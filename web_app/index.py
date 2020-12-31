@@ -77,8 +77,8 @@ description_box_style = {
 
 # ----------------------------------------------------------------
 # Get makes and models of cars
-all_options = data.make_and_model()
-manufacturers = sorted(all_options.keys())
+make_model_options = data.make_and_model()
+manufacturers = sorted(make_model_options.keys())
 
 # model years
 years = list(range(2020, 2009, -1))
@@ -156,7 +156,15 @@ app.layout = html.Div(
                                           } for year in years],
                                           multi=False,
                                           placeholder="Select Year",
-                                          style=drop_down_style),
+                                          style=styles.drop_down_style),
+                            dcc.Dropdown(id="slct_trim",
+                                          multi=False,
+                                          placeholder="Select trim",
+                                          style={
+                                              "margin-top": "10px",
+                                              "margin-bottom": "10px",
+                                              **styles.drop_down_style
+                                          }),
                              dcc.Input(id="input_mileage",
                                        type="number",
                                        placeholder="Enter Mileage",
@@ -244,11 +252,13 @@ app.layout = html.Div(
     Output(component_id="first-car", component_property="style"),
     Output(component_id="second-car", component_property="style"),
     Output(component_id="first_vehicle_title", component_property="children"),
-    Output(component_id="input_mileage", component_property="style")
+    Output(component_id="input_mileage", component_property="style"),
+    Output(component_id="slct_trim", component_property="style")
 ], [
     Input(component_id="slct_make", component_property="value"),
     Input(component_id="slct_model", component_property="value"),
     Input(component_id="slct_year", component_property="value"),
+    Input(component_id="slct_trim", component_property="value"),
     Input(component_id="input_mileage", component_property="value"),
     Input(component_id="slct_make2", component_property="value"),
     Input(component_id="slct_model2", component_property="value"),
@@ -406,6 +416,8 @@ def update_graph(make_selected, model_selected, year_selected,
                 mileage = (mileage_selected - df.Mileage.mean()) / mileage_std
             elif transform == "log":
                 mileage = np.log2(mileage_selected)
+            trim_columns.remove("clean_trim_Other")
+            trim_binary = [1 if column.strip("clean_trim_") == trim_selected else 0 for column in trim_columns]
             estimated = int(
                 model.predict([[mileage,
                                 df.Year.max() - year_selected]])[0])
@@ -476,7 +488,7 @@ def update_graph(make_selected, model_selected, year_selected,
                Output("slct_model", "value")], [Input("slct_make", "value")])
 def update_models_dropdown(make):
     if make:
-        return [{"label": i, "value": i} for i in all_options[make]], None
+        return [{"label": i, "value": i} for i in make_model_options[make]["Models"]], None
     else:
         return [], None
 
@@ -486,89 +498,18 @@ def update_models_dropdown(make):
      Output("slct_model2", "value")], [Input("slct_make2", "value")])
 def update_models2_dropdown(make):
     if make:
-        return [{"label": i, "value": i} for i in all_options[make]], None
+        return [{"label": i, "value": i} for i in make_model_options[make]["Models"]], None
     else:
         return [], None
 
-
-def generate_description(df,
-                         color,
-                         make_selected,
-                         model_selected,
-                         year_selected,
-                         reg_model=None,
-                         mileage=None,
-                         predicted=None,
-                         score=None,
-                         mileage_std=None):
-    """
-    """
-    desc = None
-    if reg_model:
-        depr_mileage = -1 * round(reg_model.coef_[0] / 500) * 500
-        depr_year = -1 * round(reg_model.coef_[1] / 100) * 100
-        mileage_std = round(mileage_std / 5000) * 5000
-        desc = [
-            html.Br(),
-            html.Br(),
-            html.Li(children=[
-                html.Font(f"The  estimated avg. listing price of a "),
-                html.Font(f"{year_selected} {make_selected} {model_selected} ",
-                          style=dict(color=color)),
-                html.Font(f"at {mileage:,} miles is "),
-                html.Font(f"${predicted:,}.", style=dict(color=color)),
-            ]),
-            html.Li(children=[
-                html.Font(f"Within the first {100000:,} miles, "),
-                html.Font(f"{make_selected} {model_selected} ",
-                          style=dict(color=color)),
-                html.Font(f"cars depreciate by about "),
-                html.Font(f"${depr_mileage:,} ", style=dict(color=color)),
-                html.Font(f"for every "),
-                html.Font(f"{mileage_std:,} ", style=dict(color=color)),
-                html.Font("miles")
-            ]),
-            html.Li(children=[
-                html.Font(f"A further depreciation of "),
-                html.Font(f"${depr_year:,} ", style=dict(color=color)),
-                html.Font("also happens as the model gets older by a year")
-            ]),
-            html.Li(children=[
-                html.Font(
-                    "The estimates are based on the multiple linear regression"
-                ),
-                html.Font("statistical method, which has "),
-                html.
-                A("these assumptions",
-                  href=
-                  "https://statisticsbyjim.com/regression/ols-linear-regression-assumptions/",
-                  target="_blank")
-            ])
-        ]
-        return desc
-    newer_price, older_price = None, None
-    newer_mileage, older_mileage = None, None
-    year = year_selected or ""
-    df = df[~df.Average_Price.isna()]
-    try:
-        newer_price, older_price = df[~df.Average_Price.isna()].iloc[
-            [0, -1], 2].tolist()
-        newer_mileage, older_mileage = df[~df.Average_Price.isna()].iloc[
-            [0, -1], 0].tolist()
-    except IndexError:
-        pass
-    if newer_price and older_price:
-        value_lost = int(100 * (newer_price - older_price) / newer_price)
-        desc = html.Li(children=[
-            html.Font(f"As mileage increases from "),
-            html.I(f'"{newer_mileage}" to "{older_mileage}", '),
-            html.Font(f"{year} {make_selected} {model_selected} ",
-                      style=dict(color=color)),
-            html.Font("cars lose about "),
-            html.Font(f"{value_lost}% ", style=dict(color=color)),
-            html.Font(f"of their value.")
-        ])
-    return desc
+@app.callback(
+    [Output("slct_trim", "options"),
+     Output("slct_trim", "value")], [Input("slct_make", "value")])
+def update_models2_dropdown(make):
+    if make:
+        return [{"label": i, "value": i} for i in make_model_options[make]["Trims"]], None
+    else:
+        return [], None
 
 
 if __name__ == "__main__":
