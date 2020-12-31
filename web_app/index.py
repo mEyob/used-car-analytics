@@ -281,7 +281,7 @@ def update_graph(make_selected, model_selected, year_selected, trim_selected,
             marker = [dict(color="rgb(82,188,163)"), dict(color="#d64161")]
             text = [[f"Sample size: {cnt}" for cnt in car1.Count.tolist()],
                     [f"Sample size: {cnt}" for cnt in car2.Count.tolist()]]
-            hovertemplate = "<br><i>Mileage Range</i>: %{x} miles<br>" + 
+            hovertemplate = "<br><i>Mileage Range</i>: %{x} miles<br>" + \
             "<i>Average Price</i>: $%{y}<br>" + "<i>%{text}</i>"
 
             fig = helper.create_plot("groupbar",
@@ -347,7 +347,7 @@ def update_graph(make_selected, model_selected, year_selected, trim_selected,
                 f"Year: {year}<br>Trim: {trim}"
                 for year, trim in zip(df.Year.astype("int"), df.clean_trim)
             ]
-            hovertemplate = "<br><i>Mileage</i>: %{x}<br>" + "<i>%{text}</i>" + 
+            hovertemplate = "<br><i>Mileage</i>: %{x}<br>" + "<i>%{text}</i>" + \
             "<br><i>Price</i>: $%{y}<br>"
             title = f"Regression Estimator: {year_selected} {make_selected} {model_selected}"
             fig = helper.create_plot("scatter",
@@ -387,7 +387,7 @@ def update_graph(make_selected, model_selected, year_selected, trim_selected,
             # Show estimate as a scatter plot
             marker = dict(color="#d64161", size=10)
             text = [f"Year: {year_selected}<br>Trim: {trim_selected}"]
-            hovertemplate = "<br><i>Mileage</i>: %{x}<br>" + "<i>%{text}</i>" + 
+            hovertemplate = "<br><i>Mileage</i>: %{x}<br>" + "<i>%{text}</i>" + \
             "<br><i>Estimated Avg. Price</i>: $%{y}<br>"
             helper.create_plot("scatter", [mileage_selected], [estimated],
                                mode="markers",
@@ -408,7 +408,7 @@ def update_graph(make_selected, model_selected, year_selected, trim_selected,
             ]
             text = [f"Year: {year}" for year in generated_year]
             line = dict(color="#d64161", width=3)
-            hovertemplate = "<br><i>Mileage</i>: %{x}<br>" + "<i>%{text}</i>" + 
+            hovertemplate = "<br><i>Mileage</i>: %{x}<br>" + "<i>%{text}</i>" + \
             "<br><i>Estimated Avg. Price</i>: $%{y}<br>"
             helper.create_plot("scatter",
                                generated_mileage,
