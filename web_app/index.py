@@ -221,7 +221,7 @@ def update_graph(make_selected, model_selected, year_selected, trim_selected,
 
             marker = dict(color="#d64161")
             text = [f"Sample size: {cnt}" for cnt in df.Count.tolist()]
-            hovertemplate = "<br><i>Mileage Range</i>: %{x} miles<br>" + 
+            hovertemplate = "<br><i>Mileage Range</i>: %{x} miles<br>" + \
             "<i>Average Price</i>: $%{y}<br>" + "<i>%{text}</i>"
 
             fig = helper.create_plot("bar",
