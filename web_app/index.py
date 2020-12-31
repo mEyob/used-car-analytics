@@ -2,86 +2,28 @@ from app import app
 from app import server
 import pandas as pd
 import numpy as np
-import data
 import estimate
+import styles
+import helper
+import data
 
 # Dash imports
-import plotly.express as px
-import plotly.graph_objects as go
 import dash
+import plotly.graph_objects as go
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 
-# ---------------------------------------------------------------
-# styling options
-tab_style = {
-    "color": "#b7d7e8",
-    "borderTopLeftRadius": "3px",
-    "borderTopRightRadius": "3px",
-    "borderTop": "3px solid transparent",
-    "borderLeft": "0px",
-    "borderRight": "0px",
-    "borderBottom": "0px",
-    "backgroundColor": "#fafbfc",
-    "padding": "12px",
-    "fontFamily": "system-ui",
-    "display": "flex",
-    "align-items": "center",
-    "justify-content": "center",
-}
-
-tab_selected_style = {
-    "borderTop": "3px solid #87bdd8",
-    "boxShadow": "1px 1px 0px white",
-    "borderLeft": "1px solid lightgrey",
-    "borderRight": "1px solid lightgrey",
-    "color": "#87bdd8",
-    "fontWeight": "bold",
-}
-
-tab_group_style = {
-    "borderTopLeftRadius": "3px",
-    "backgroundColor": "#f9f9f9",
-    "padding": "0px 24px",
-    "border-bottom": "1px solid #d6d6d6",
-    "width": "85%"
-}
-
-drop_down_style = {
-    "color": "#588c7e",
-    "background": "transparent",
-    "border-color": "white"
-}
-
-drop_down_group_style = {
-    "color": "white",
-    "padding": "5px 25px 10px 25px",
-    "background-color": "#b7d7e8",
-    "border-radius": "5px",
-    "border-color": "#6e7575",
-    "border-width": "1px",
-    "border-style": "solid",
-}
-
-description_box_style = {
-    "color": "#8d9db6",
-    "width": "25%",
-    "padding": "10px",
-    "border-radius": "5px"
-}
-
-# ----------------------------------------------------------------
 # Get makes and models of cars
-all_options = data.make_and_model()
-manufacturers = sorted(all_options.keys())
+make_model_options = data.make_and_model()
+manufacturers = sorted(make_model_options.keys())
 
 # model years
 years = list(range(2020, 2009, -1))
-# ----------------------------------------------------------------
+
 # App layout
 app.layout = html.Div(
-    style={"font-family": "system-ui"},
+    style=styles.dashboard_style,
     children=[
         html.H2("Used Car Listing Prices in the Boston Metropolitan",
                 style={
@@ -91,32 +33,31 @@ app.layout = html.Div(
                 }),
         dcc.Tabs(
             id="all-tabs-inline",
-            #className="all-tabs-inline",
-            style=tab_group_style,
+            style=styles.tab_group_style,
             children=[
                 dcc.Tab(
                     label="Listing Price",
                     value="tab-1",
-                    style=tab_style,
-                    selected_style=tab_selected_style,
+                    style=styles.tab_style,
+                    selected_style=styles.tab_selected_style,
                 ),
                 dcc.Tab(
                     label="Compare Listing Prices",
                     value="tab-2",
-                    style=tab_style,
-                    selected_style=tab_selected_style,
+                    style=styles.tab_style,
+                    selected_style=styles.tab_selected_style,
                 ),
                 dcc.Tab(
                     label="Estimate Listing Price",
                     value="tab-3",
-                    style=tab_style,
-                    selected_style=tab_selected_style,
+                    style=styles.tab_style,
+                    selected_style=styles.tab_selected_style,
                 ),
                 dcc.Tab(
                     label="About the dashboard",
                     value="tab-4",
-                    style=tab_style,
-                    selected_style=tab_selected_style,
+                    style=styles.tab_style,
+                    selected_style=styles.tab_selected_style,
                 )
             ],
         ),
@@ -124,6 +65,10 @@ app.layout = html.Div(
         html.Br(),
         html.Div(
             [
+                html.Br(),
+                html.Br(),
+                html.Br(),
+                html.Br(),
                 html.Div(id="first-car",
                          children=[
                              html.H6(children=["Select vehicle"],
@@ -136,7 +81,7 @@ app.layout = html.Div(
                                           multi=False,
                                           value="Toyota",
                                           placeholder="Select Make",
-                                          style=drop_down_style),
+                                          style=styles.drop_down_style),
                              dcc.Dropdown(id="slct_model",
                                           multi=False,
                                           value="Camry",
@@ -144,7 +89,7 @@ app.layout = html.Div(
                                           style={
                                               "margin-top": "10px",
                                               "margin-bottom": "10px",
-                                              **drop_down_style
+                                              **styles.drop_down_style
                                           }),
                              dcc.Dropdown(id="slct_year",
                                           options=[{
@@ -153,17 +98,25 @@ app.layout = html.Div(
                                           } for year in years],
                                           multi=False,
                                           placeholder="Select Year",
-                                          style=drop_down_style),
+                                          style=styles.drop_down_style),
+                             dcc.Dropdown(id="slct_trim",
+                                          multi=False,
+                                          placeholder="Select trim",
+                                          style={
+                                              "margin-top": "10px",
+                                              "margin-bottom": "10px",
+                                              **styles.drop_down_style
+                                          }),
                              dcc.Input(id="input_mileage",
                                        type="number",
                                        placeholder="Enter Mileage",
                                        style={
                                            "margin-top": "10px",
                                            "display": "none",
-                                           **drop_down_style
+                                           **styles.drop_down_style
                                        }),
                          ],
-                         style=drop_down_group_style),
+                         style=styles.drop_down_group_style),
                 html.Br(),
                 html.Div(
                     id="second-car",
@@ -177,7 +130,7 @@ app.layout = html.Div(
                                      multi=False,
                                      value="Honda",
                                      placeholder="Select Make",
-                                     style=drop_down_style),
+                                     style=styles.drop_down_style),
                         dcc.Dropdown(id="slct_model2",
                                      multi=False,
                                      value="Accord",
@@ -185,7 +138,7 @@ app.layout = html.Div(
                                      style={
                                          "margin-top": "10px",
                                          "margin-bottom": "10px",
-                                         **drop_down_style
+                                         **styles.drop_down_style
                                      }),
                         dcc.Dropdown(
                             id="slct_year2",
@@ -196,17 +149,14 @@ app.layout = html.Div(
                             multi=False,
                             #value=2015,
                             placeholder="Select year",
-                            style=drop_down_style),
+                            style=styles.drop_down_style),
                     ],
                     style={
-                        **drop_down_group_style, "display": "none"
+                        **styles.drop_down_group_style, "display": "none"
                     },
                 )
             ],
-            style={
-                "display": "inline-block",
-                "width": "15%",
-            },
+            style=styles.input_group_style,
             className="six columns",
         ),
         html.Div(id="graph-div",
@@ -220,17 +170,9 @@ app.layout = html.Div(
                  className="six columns",
                  style={
                      "display": "none",
-                     **description_box_style
+                     **styles.description_box_style
                  },
-                 children=[
-                     html.P("The second question and more of two more"),
-                     html.P("an observation is that is it possible"),
-                     html.P("to use directly the column names in"),
-                     html.P("Pandas dataframe function without"),
-                     html.P("enclosing them inside quotes? I"),
-                     html.P("understand that the variable names"),
-                     html.P("are string, so has to be inside quotes,"),
-                 ])
+                 children=[])
     ])
 
 
@@ -244,26 +186,29 @@ app.layout = html.Div(
     Output(component_id="first-car", component_property="style"),
     Output(component_id="second-car", component_property="style"),
     Output(component_id="first_vehicle_title", component_property="children"),
-    Output(component_id="input_mileage", component_property="style")
+    Output(component_id="input_mileage", component_property="style"),
+    Output(component_id="slct_trim", component_property="style")
 ], [
     Input(component_id="slct_make", component_property="value"),
     Input(component_id="slct_model", component_property="value"),
     Input(component_id="slct_year", component_property="value"),
+    Input(component_id="slct_trim", component_property="value"),
     Input(component_id="input_mileage", component_property="value"),
     Input(component_id="slct_make2", component_property="value"),
     Input(component_id="slct_model2", component_property="value"),
     Input(component_id="slct_year2", component_property="value"),
     Input(component_id="all-tabs-inline", component_property="value")
 ])
-def update_graph(make_selected, model_selected, year_selected,
+def update_graph(make_selected, model_selected, year_selected, trim_selected,
                  mileage_selected, make_selected2, model_selected2,
                  year_selected2, tab):
-    show_first_car = {**drop_down_group_style, "display": "block"}
-    show_second_car = {**drop_down_group_style, "display": "none"}
+    show_first_car = {**styles.drop_down_group_style, "display": "block"}
+    show_second_car = {**styles.drop_down_group_style, "display": "none"}
     show_graph = {"display": "none"}
     description = html.P()
-    show_description = {"display": "none", **description_box_style}
-    mileage_box = {**drop_down_style, "display": "none"}
+    show_description = {"display": "none", **styles.description_box_style}
+    mileage_box = {**styles.drop_down_style, "display": "none"}
+    trim_box = {**styles.drop_down_style, "display": "none"}
     first_vehicle_title = "Select Vehicle"
     fig = go.Figure()
 
@@ -273,36 +218,39 @@ def update_graph(make_selected, model_selected, year_selected,
                 [str(year_selected or ""), make_selected, model_selected])
             df = data.get_grouped_data(make_selected, model_selected,
                                        year_selected)
-            fig = go.Figure(
-                go.Bar(
-                    name="",
-                    x=df.Mileage_range,
-                    y=df.Average_Price,
-                    error_y=dict(array=df.STD_Price.tolist()),
-                    marker=dict(color="#d64161"),
-                    text=[f"Sample size: {cnt}" for cnt in df.Count.tolist()],
-                    hovertemplate="<br><i>Mileage Range</i>: %{x} miles<br>" +
-                    "<i>Average Price</i>: $%{y}<br>" + "<i>%{text}</i>",
-                    opacity=0.6))
-            #fig.update_traces(marker_color="#d64161")
-            fig.layout.plot_bgcolor = "#f9f9f9"
-            fig.update_layout(hoverlabel_align="right",
-                              xaxis_title="Mileage (miles)",
-                              yaxis_title="Average Price ($)",
-                              title_text=f"{car} Listing Price",
-                              title_x=0.5)
-            desc = generate_description(df, "#d64161", make_selected,
-                                        model_selected, year_selected)
+
+            marker = dict(color="#d64161")
+            text = [f"Sample size: {cnt}" for cnt in df.Count.tolist()]
+            hovertemplate = "<br><i>Mileage Range</i>: %{x} miles<br>" + \
+            "<i>Average Price</i>: $%{y}<br>" + "<i>%{text}</i>"
+
+            fig = helper.create_plot("bar",
+                                     df.Mileage_range,
+                                     df.Average_Price,
+                                     error_y=dict(array=df.STD_Price.tolist()),
+                                     marker=marker,
+                                     text=text,
+                                     template=hovertemplate,
+                                     title=f"{car} Listing Price",
+                                     xaxis_title="Mileage (miles)",
+                                     yaxis_title="Average Price ($)",
+                                     opacity=0.7)
+            desc = helper.generate_description(
+                df,
+                "#d64161",
+                make_selected,
+                model_selected,
+                year_selected,
+                style=styles.description_tablets_style)
             if desc:
-                description = html.P(children=[
-                    html.Ul(children=[
-                        desc,
-                        html.Li(
-                            html.Font(
-                                "Hover over the bars to check the sample size. Larger sample size has a higher chance of yielding accurate statistics"
-                            ))
-                    ])
-                ])
+                description = [
+                    html.Br(),
+                    html.Br(), desc,
+                    html.
+                    P("Hover over the bars to check the sample size. " +
+                      "Larger sample size has a higher chance of yielding accurate statistics",
+                      style=styles.description_tablets_style)
+                ]
                 show_description["display"] = "inline-block"
             show_graph["display"] = "block"
 
@@ -315,8 +263,6 @@ def update_graph(make_selected, model_selected, year_selected,
                                        make2=make_selected2,
                                        model2=model_selected2,
                                        year2=year_selected2)
-            # df = df[["MakeModel", "Mileage_range", "Average_Price"]]
-            #df.fillna(0, inplace=True)
             try:
                 makemodel1, makemodel2 = df.MakeModel.unique().tolist()
             except ValueError:
@@ -325,156 +271,193 @@ def update_graph(make_selected, model_selected, year_selected,
             car1 = df[df["MakeModel"] == makemodel1]
             car2 = df[df["MakeModel"] == makemodel2]
 
-            fig = go.Figure(data=[
-                go.Bar(
-                    name=makemodel1,
-                    x=car1.Mileage_range,
-                    y=car1.Average_Price,
-                    error_y=dict(array=car1.STD_Price.tolist()),
-                    marker=dict(color="rgb(82,188,163)"),
-                    text=[
-                        f"Sample size: {cnt}" for cnt in car1.Count.tolist()
-                    ],
-                    hovertemplate="<br><i>Mileage Range</i>: %{x} miles<br>" +
-                    "<i>Average Price</i>: $%{y}<br>" + "<i>%{text}</i>",
-                    opacity=0.7),
-                go.Bar(
-                    name=makemodel2,
-                    x=car2.Mileage_range,
-                    y=car2.Average_Price,
-                    error_y=dict(array=car2.STD_Price.tolist()),
-                    marker=dict(color="#d64161"),
-                    text=[
-                        f"Sample size: {cnt}" for cnt in car2.Count.tolist()
-                    ],
-                    hovertemplate="<br><i>Mileage Range</i>: %{x} miles<br>" +
-                    "<i>Average Price</i>: $%{y}<br>" + "<i>%{text}</i>",
-                    opacity=0.7)
-            ])
-            fig.layout.plot_bgcolor = "#f9f9f9"
-            fig.update_layout(barmode="group",
-                              hoverlabel_align="right",
-                              xaxis_title="Mileage (miles)",
-                              yaxis_title="Average Price ($)",
-                              title_text=f"{makemodel1} vs {makemodel2}",
-                              title_x=0.5)
-            desc1 = generate_description(car1, "rgb(82,188,163)",
-                                         make_selected, model_selected,
-                                         year_selected)
-            desc2 = generate_description(car2, "#d64161", make_selected2,
-                                         model_selected2, year_selected2)
+            name = [makemodel1, makemodel2]
+            x = [car1.Mileage_range, car2.Mileage_range]
+            y = [car1.Average_Price, car2.Average_Price]
+            error_y = [
+                dict(array=car1.STD_Price.tolist()),
+                dict(array=car2.STD_Price.tolist())
+            ]
+            marker = [dict(color="rgb(82,188,163)"), dict(color="#d64161")]
+            text = [[f"Sample size: {cnt}" for cnt in car1.Count.tolist()],
+                    [f"Sample size: {cnt}" for cnt in car2.Count.tolist()]]
+            hovertemplate = "<br><i>Mileage Range</i>: %{x} miles<br>" + \
+            "<i>Average Price</i>: $%{y}<br>" + "<i>%{text}</i>"
+
+            fig = helper.create_plot("groupbar",
+                                     x,
+                                     y,
+                                     error_y=error_y,
+                                     marker=marker,
+                                     text=text,
+                                     template=hovertemplate,
+                                     name=name,
+                                     title=f"{makemodel1} vs {makemodel2}",
+                                     xaxis_title="Mileage (miles)",
+                                     yaxis_title="Average Price ($)",
+                                     opacity=0.7)
+
+            desc1 = helper.generate_description(
+                car1,
+                "rgb(82,188,163)",
+                make_selected,
+                model_selected,
+                year_selected,
+                style=styles.description_tablets_style)
+            desc2 = helper.generate_description(
+                car2,
+                "#d64161",
+                make_selected2,
+                model_selected2,
+                year_selected2,
+                style=styles.description_tablets_style)
             if desc1 or desc2:
-                description = html.P(children=[
-                    html.Ul(children=[
-                        desc1, desc2,
-                        html.Li(
-                            html.Font(
-                                "Hover over the bars to check the sample size. Larger sample size has a higher chance of yielding accurate statistics"
-                            ))
-                    ])
-                ])
+                description = [
+                    html.Br(),
+                    html.Br(), desc1, desc2,
+                    html.
+                    P("Hover over the bars to check the sample size. " +
+                      "Larger sample size has a higher chance of yielding accurate statistics",
+                      style=styles.description_tablets_style)
+                ]
                 show_description["display"] = "inline-block"
             show_graph["display"] = "block"
-        show_second_car = {**drop_down_group_style, "display": "block"}
+        show_second_car = {**styles.drop_down_group_style, "display": "block"}
         first_vehicle_title = "Vehicle 1"
 
     elif tab == "tab-3":
-        if all(
-            [make_selected, model_selected, year_selected, mileage_selected]):
+        if all([
+                make_selected, model_selected, year_selected, trim_selected,
+                mileage_selected
+        ]):
             df = data.get_data(Make=make_selected, Model=model_selected)
             df.sort_values(by="Mileage", inplace=True)
             mileage_per_year = 12000
-            predicted, model, transform, score = estimate.main(
+            mileage_std = df.Mileage.std()
+            mileage_std = round(mileage_std / 5000) * 5000
+
+            # Select only the dataframe columns relevant for estimating price
+            df = df[["Mileage", "Year", "Price", "clean_trim"]]
+            predicted, model, transform, score, trim_columns = estimate.main(
                 df, mileage_per_year)
 
-            mileage_std = df.Mileage.std()
+            # A scatter plot of mileage vs price
+            marker = dict(color="rgb(82,188,163)")
+            text = [
+                f"Year: {year}<br>Trim: {trim}"
+                for year, trim in zip(df.Year.astype("int"), df.clean_trim)
+            ]
+            hovertemplate = "<br><i>Mileage</i>: %{x}<br>" + "<i>%{text}</i>" + \
+            "<br><i>Price</i>: $%{y}<br>"
+            title = f"Regression Estimator: {year_selected} {make_selected} {model_selected}"
+            fig = helper.create_plot("scatter",
+                                     df.Mileage,
+                                     df.Price,
+                                     mode="markers",
+                                     name="Data points",
+                                     marker=marker,
+                                     text=text,
+                                     template=hovertemplate,
+                                     title=title,
+                                     xaxis_title="Mileage (miles)",
+                                     yaxis_title="Price ($)",
+                                     opacity=0.5)
 
-            fig = go.Figure(
-                go.Scatter(
-                    x=df.Mileage,
-                    y=df.Price,
-                    mode="markers",
-                    name="Data points",
-                    marker=dict(color="rgb(82,188,163)"),
-                    text=[f"Year: {year}" for year in df.Year.astype("int")],
-                    hovertemplate="<br><i>Mileage</i>: %{x}<br>" +
-                    "<i>%{text}</i>" + "<br><i>Price</i>: $%{y}<br>",
-                    opacity=0.5))
+            # Compute estimated average price using the reg. model
             mileage_selected = int(mileage_selected)
             if transform == "std":
                 mileage = (mileage_selected - df.Mileage.mean()) / mileage_std
             elif transform == "log":
                 mileage = np.log2(mileage_selected)
+            trim_columns.remove("clean_trim_Other")
+            trim_binary = [
+                1 if column.strip("clean_trim_") == trim_selected else 0
+                for column in trim_columns
+            ]
             estimated = int(
-                model.predict([[mileage,
-                                df.Year.max() - year_selected]])[0])
+                model.predict(
+                    [[mileage,
+                      df.Year.max() - year_selected, *trim_binary]])[0])
             print(f"Estimated Price {estimated}")
             print(
                 f"R2 on Test {score}",
-                f"Mileage coeff = {model.coef_[0]}, Year coff = {model.coef_[1]}"
-            )
-            fig.add_trace(
-                go.Scatter(
-                    x=[mileage_selected],
-                    y=[estimated],
-                    mode="markers",
-                    marker=dict(color="#d64161", size=10),
-                    name=f"Est. Average Price",
-                    text=[f"Year: {year_selected}"],
-                    hovertemplate="<br><i>Mileage</i>: %{x}<br>" +
-                    "<i>%{text}</i>" +
-                    "<br><i>Estimated Avg. Price</i>: $%{y}<br>",
-                ))
+                f"Mileage coeff = {model.coef_[0]}, Year coff = {model.coef_[1]}",
+                f"Other coefs: {model.coef_[2:]}")
+
+            # Show estimate as a scatter plot
+            marker = dict(color="#d64161", size=10)
+            text = [f"Year: {year_selected}<br>Trim: {trim_selected}"]
+            hovertemplate = "<br><i>Mileage</i>: %{x}<br>" + "<i>%{text}</i>" + \
+            "<br><i>Estimated Avg. Price</i>: $%{y}<br>"
+            helper.create_plot("scatter", [mileage_selected], [estimated],
+                               mode="markers",
+                               name="Est. Average Price",
+                               marker=marker,
+                               text=text,
+                               template=hovertemplate,
+                               title=title,
+                               xaxis_title="Mileage (miles)",
+                               yaxis_title="Price ($)",
+                               base_fig=fig)
+
+            # Generate and plot a 'trend line' using the reg model
             generated_mileage = list(range(0, 150000, mileage_per_year))
             generated_year = [
                 int(df.Year.max() - (mileage // mileage_per_year))
                 for mileage in generated_mileage
             ]
-            fig.add_trace(
-                go.Scatter(x=generated_mileage,
-                           y=predicted,
-                           mode="lines",
-                           line=dict(
-                               color="#d64161",
-                               width=4,
-                           ),
-                           text=[f"Year: {year}" for year in generated_year],
-                           hovertemplate="<br><i>Mileage</i>: %{x}<br>" +
-                           "<i>%{text}</i>" +
-                           "<br><i>Estimated Avg. Price<i>: $%{y}<br>",
-                           name="Regression line"))
-            fig.layout.plot_bgcolor = "#f9f9f9"
-            fig.update_layout(
-                xaxis_title="Mileage (miles)",
-                yaxis_title="Price ($)",
-                title=
-                "Regression line: <i>Avg. Price = <b>a</b> f(Year) + <b>b</b> g(Mileage) + <b>c</b></i>",
-                title_x=0.5,
-                showlegend=True,
-                hoverlabel=dict(font_size=14, font_family="Rockwell"))
-            description = generate_description(df, "#d64161", make_selected,
-                                               model_selected, year_selected,
-                                               model, mileage_selected,
-                                               estimated, score, mileage_std)
+            text = [f"Year: {year}" for year in generated_year]
+            line = dict(color="#d64161", width=3)
+            hovertemplate = "<br><i>Mileage</i>: %{x}<br>" + "<i>%{text}</i>" + \
+            "<br><i>Estimated Avg. Price</i>: $%{y}<br>"
+            helper.create_plot("scatter",
+                               generated_mileage,
+                               predicted,
+                               mode="lines",
+                               name="Regression line",
+                               text=text,
+                               template=hovertemplate,
+                               line=line,
+                               base_fig=fig)
+
+            description = helper.generate_description(
+                df,
+                "#d64161",
+                make_selected,
+                model_selected,
+                year_selected,
+                model,
+                mileage_selected,
+                estimated,
+                score,
+                mileage_std,
+                style=styles.description_tablets_style)
             show_description["display"] = "inline-block"
             show_graph["display"] = "block"
 
         mileage_box = {
-            **drop_down_style, "margin-top": "10px",
+            **styles.drop_down_style, "margin-top": "10px",
             "width": "100%",
+            "display": "block"
+        }
+        trim_box = {
+            **styles.drop_down_style, "margin-top": "10px",
             "display": "block"
         }
     elif tab == "tab-4":
         show_first_car["display"] = "none"
 
-    return show_graph, show_description, description, fig, show_first_car, show_second_car, first_vehicle_title, mileage_box
+    return show_graph, show_description, description, fig, show_first_car, show_second_car, first_vehicle_title, mileage_box, trim_box
 
 
 @app.callback([Output("slct_model", "options"),
                Output("slct_model", "value")], [Input("slct_make", "value")])
 def update_models_dropdown(make):
     if make:
-        return [{"label": i, "value": i} for i in all_options[make]], None
+        return [{
+            "label": i,
+            "value": i
+        } for i in make_model_options[make]["Models"]], None
     else:
         return [], None
 
@@ -484,89 +467,24 @@ def update_models_dropdown(make):
      Output("slct_model2", "value")], [Input("slct_make2", "value")])
 def update_models2_dropdown(make):
     if make:
-        return [{"label": i, "value": i} for i in all_options[make]], None
+        return [{
+            "label": i,
+            "value": i
+        } for i in make_model_options[make]["Models"]], None
     else:
         return [], None
 
 
-def generate_description(df,
-                         color,
-                         make_selected,
-                         model_selected,
-                         year_selected,
-                         reg_model=None,
-                         mileage=None,
-                         predicted=None,
-                         score=None,
-                         mileage_std=None):
-    """
-    """
-    desc = None
-    if reg_model:
-        depr_mileage = -1 * round(reg_model.coef_[0] / 500) * 500
-        depr_year = -1 * round(reg_model.coef_[1] / 100) * 100
-        mileage_std = round(mileage_std / 5000) * 5000
-        desc = [
-            html.Br(),
-            html.Br(),
-            html.Li(children=[
-                html.Font(f"The  estimated avg. listing price of a "),
-                html.Font(f"{year_selected} {make_selected} {model_selected} ",
-                          style=dict(color=color)),
-                html.Font(f"at {mileage:,} miles is "),
-                html.Font(f"${predicted:,}.", style=dict(color=color)),
-            ]),
-            html.Li(children=[
-                html.Font(f"Within the first {100000:,} miles, "),
-                html.Font(f"{make_selected} {model_selected} ",
-                          style=dict(color=color)),
-                html.Font(f"cars depreciate by about "),
-                html.Font(f"${depr_mileage:,} ", style=dict(color=color)),
-                html.Font(f"for every "),
-                html.Font(f"{mileage_std:,} ", style=dict(color=color)),
-                html.Font("miles")
-            ]),
-            html.Li(children=[
-                html.Font(f"A further depreciation of "),
-                html.Font(f"${depr_year:,} ", style=dict(color=color)),
-                html.Font("also happens as the model gets older by a year")
-            ]),
-            html.Li(children=[
-                html.Font(
-                    "The estimates are based on the multiple linear regression"
-                ),
-                html.Font("statistical method, which has "),
-                html.
-                A("these assumptions",
-                  href=
-                  "https://statisticsbyjim.com/regression/ols-linear-regression-assumptions/",
-                  target="_blank")
-            ])
-        ]
-        return desc
-    newer_price, older_price = None, None
-    newer_mileage, older_mileage = None, None
-    year = year_selected or ""
-    df = df[~df.Average_Price.isna()]
-    try:
-        newer_price, older_price = df[~df.Average_Price.isna()].iloc[
-            [0, -1], 2].tolist()
-        newer_mileage, older_mileage = df[~df.Average_Price.isna()].iloc[
-            [0, -1], 0].tolist()
-    except IndexError:
-        pass
-    if newer_price and older_price:
-        value_lost = int(100 * (newer_price - older_price) / newer_price)
-        desc = html.Li(children=[
-            html.Font(f"As mileage increases from "),
-            html.I(f'"{newer_mileage}" to "{older_mileage}", '),
-            html.Font(f"{year} {make_selected} {model_selected} ",
-                      style=dict(color=color)),
-            html.Font("cars lose about "),
-            html.Font(f"{value_lost}% ", style=dict(color=color)),
-            html.Font(f"of their value.")
-        ])
-    return desc
+@app.callback([Output("slct_trim", "options"),
+               Output("slct_trim", "value")], [Input("slct_make", "value")])
+def update_models2_dropdown(make):
+    if make:
+        return [{
+            "label": i,
+            "value": i
+        } for i in make_model_options[make]["Trims"]], None
+    else:
+        return [], None
 
 
 if __name__ == "__main__":

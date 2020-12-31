@@ -1,7 +1,7 @@
 import dask.dataframe as dd
 import pandas as pd
 import s3fs
-
+import regex
 # s3 = s3fs.S3FileSystem()
 # s3.invalidate_cache()
 
@@ -25,8 +25,10 @@ def merge_models(model):
         return model
 
 
-df["Model"] = df.Model.apply(merge_models)
+df["Model"] = df.Model.apply(merge_models, meta=('Model', 'object'))
 df = df.drop_duplicates().compute()
+df["clean_trim"] = df.apply(
+    lambda row: regex.trim_parser(row["Trim"], row["Make"]), axis=1)
 
 
 def safe_to_number(x):
@@ -90,14 +92,21 @@ def get_grouped_data(make, model, year, **kwargs):
 def make_and_model():
     """
     """
-    all_options = {}
+    make_model_trim = {}
+
     makes = df.Make.unique().tolist()
 
     for make in makes:
+        tmp_dict = {}
+
         models = df[df.Make == make].Model.unique().tolist()
         models.sort()
-        all_options[make] = models
-    return all_options
+        tmp_dict["Models"] = models
 
+        trims = df[df.Make == make].clean_trim.unique().tolist()
+        trims.sort()
+        tmp_dict["Trims"] = trims
 
-#print(make_and_model())
+        make_model_trim[make] = tmp_dict
+
+    return make_model_trim
