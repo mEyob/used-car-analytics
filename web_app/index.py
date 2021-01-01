@@ -2,6 +2,7 @@ from app import app
 from app import server
 import pandas as pd
 import numpy as np
+import base64
 import estimate
 import styles
 import helper
@@ -14,12 +15,16 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 
-# Get makes and models of cars
+# get makes and models of cars
 make_model_options = data.make_and_model()
 manufacturers = sorted(make_model_options.keys())
 
 # model years
 years = list(range(2020, 2009, -1))
+
+# import pipeline image
+image_filename = 'web_app/assets/architecture.jpg'
+encoded_image = base64.b64encode(open(image_filename, 'rb').read())
 
 # App layout
 app.layout = html.Div(
@@ -172,7 +177,16 @@ app.layout = html.Div(
                      "display": "none",
                      **styles.description_box_style
                  },
-                 children=[])
+                 children=[]),
+        html.Div([
+            html.Img(id="arch-pic",
+                     src=f'data:image/jpg;base64,{encoded_image.decode()}',
+                     style={
+                         "display": "none",
+                         **styles.arch_fig_style
+                     })
+        ],
+                 className="six columns")
     ])
 
 
@@ -187,7 +201,8 @@ app.layout = html.Div(
     Output(component_id="second-car", component_property="style"),
     Output(component_id="first_vehicle_title", component_property="children"),
     Output(component_id="input_mileage", component_property="style"),
-    Output(component_id="slct_trim", component_property="style")
+    Output(component_id="slct_trim", component_property="style"),
+    Output(component_id="arch-pic", component_property="style"),
 ], [
     Input(component_id="slct_make", component_property="value"),
     Input(component_id="slct_model", component_property="value"),
@@ -211,6 +226,7 @@ def update_graph(make_selected, model_selected, year_selected, trim_selected,
     trim_box = {**styles.drop_down_style, "display": "none"}
     first_vehicle_title = "Select Vehicle"
     fig = go.Figure()
+    show_arch_fig = {"display": "none", **styles.arch_fig_style}
 
     if tab == "tab-1":
         if make_selected and model_selected:
@@ -445,9 +461,28 @@ def update_graph(make_selected, model_selected, year_selected, trim_selected,
             "display": "block"
         }
     elif tab == "tab-4":
+        description = html.P([
+            html.Font("This dashboard provides used car listing price "),
+            html.Font("statistics and estimates. Listing prices are scrapped"),
+            html.Font(
+                " from major car listing websites on a weekly basis. The processed"
+            ),
+            html.Font(
+                "data is stored in S3 and used to build estimation models. "),
+            html.Font(
+                "The figure on the side shows how the project is setup in AWS. Checkout the "
+            ),
+            html.A("Github page",
+                   href="https://github.com/mEyob/used-car-analytics",
+                   target="_blank")
+        ],
+                             style=styles.description_tablets_style)
+        show_arch_fig["display"] = "inline-block"
+        show_description["display"] = "inline-block"
         show_first_car["display"] = "none"
+        show_second_car["display"] = "none"
 
-    return show_graph, show_description, description, fig, show_first_car, show_second_car, first_vehicle_title, mileage_box, trim_box
+    return show_graph, show_description, description, fig, show_first_car, show_second_car, first_vehicle_title, mileage_box, trim_box, show_arch_fig
 
 
 @app.callback([Output("slct_model", "options"),

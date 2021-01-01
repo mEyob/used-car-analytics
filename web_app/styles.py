@@ -70,3 +70,5 @@ description_tablets_style = {
     "background-color": "#f9f9f9",
     "padding": "10px",
 }
+
+arch_fig_style = {"width": "75%"}
